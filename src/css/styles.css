@@ -1,0 +1,16 @@
+/* element selectors */
+body {
+  color:red; margin:0px;
+}
+
+
+/* class selectors */
+.a-class {
+  color:blue;
+}
+
+
+/* id selectors */
+#an-id {
+  text-shadow: 2px 2px #ff0000;
+}

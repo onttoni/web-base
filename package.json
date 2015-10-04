@@ -1,0 +1,28 @@
+{ "name" : "web-base",
+  "version" : "0.0.0",
+  "description" : "Common Node.js modules for web-base.",
+  "dependencies" : {
+    "bootstrap": "latest",
+    "bragi-browser": "latest",
+    "browserify": "latest",
+    "font-awesome": "latest",
+    "grunt": "latest",
+    "grunt-browserify": "latest",
+    "grunt-cli": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-htmlmin": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-htmllint": "latest",
+    "grunt-mkdir": "latest",
+    "http-server": "latest",
+    "jquery": "latest",
+    "jquery-ui": "latest",
+    "mongoose": "latest"
+  },
+  "scripts": {
+    "start": "cd build && http-server -a 127.0.0.1 -p 8000 -c-1"
+  }
+}
