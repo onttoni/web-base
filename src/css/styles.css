@@ -9,6 +9,11 @@ body {
   color:blue;
 }
 
+.fa-test {
+  font-family: "FontAwesome";
+  font-size: 24px;
+}
+
 
 /* id selectors */
 #an-id {
