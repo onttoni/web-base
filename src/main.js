@@ -1,11 +1,10 @@
-var logger = require('bragi-browser');
 var $ = require('jquery');
 require('jquery-ui/dialog');
 
 $( '#dialog' ).dialog({ autoOpen: false });
 
 $( document ).ready(function() {
-  logger.log('debug', 'document ready');
+  console.info('document ready');
   bind_buttons();
 });
 
