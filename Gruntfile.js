@@ -67,7 +67,7 @@ module.exports = function(grunt) {
       },
       combine: {
         files: {
-          'build/styles.css': [
+          'build/css/styles.css': [
             'src/css/styles.css',
             'node_modules/bootstrap/dist/css/bootstrap.css',
             'node_modules/font-awesome/css/font-awesome.css',
