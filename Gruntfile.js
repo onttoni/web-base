@@ -20,9 +20,9 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'src',
+          cwd: 'src/js',
           src: ['**/*.js'],
-          dest: 'build'
+          dest: 'build/js'
         }]
       },
       debug: {
@@ -33,9 +33,9 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: 'src',
+          cwd: 'src/js',
           src: ['**/*.js'],
-          dest: 'build'
+          dest: 'build/js'
         }]
       }
     },
@@ -121,8 +121,12 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: 'build/main.js',
-        dest: 'build/main.js'
+        files: [{
+          expand: true,
+          cwd: 'build/js',
+          src: ['**/*.js'],
+          dest: 'build/js'
+        }]
       }
     },
 
