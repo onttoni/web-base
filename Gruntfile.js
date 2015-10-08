@@ -21,8 +21,9 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'src/js',
-          src: ['**/*.js'],
-          dest: 'build/js'
+          src: ['main.js'],
+          dest: 'build/js',
+          flatten: true
         }]
       },
       debug: {
@@ -34,8 +35,9 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'src/js',
-          src: ['**/*.js'],
-          dest: 'build/js'
+          src: ['main.js'],
+          dest: 'build/js',
+          flatten: true
         }]
       }
     },
