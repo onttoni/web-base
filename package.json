@@ -17,6 +17,7 @@
     "grunt-contrib-watch": "latest",
     "grunt-htmllint": "latest",
     "grunt-mkdir": "latest",
+    "grunt-ng-annotate": "latest",
     "http-server": "latest",
     "jquery": "latest",
     "jquery-ui": "latest",

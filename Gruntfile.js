@@ -118,11 +118,22 @@ module.exports = function(grunt) {
       },
     },
 
+    ngAnnotate: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'build/js',
+          src: ['**/*.js'],
+          dest: 'build/js'
+        }]
+      }
+    },
+
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
-      build: {
+      dist: {
         files: [{
           expand: true,
           cwd: 'build/js',
@@ -150,11 +161,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-htmllint');
   grunt.loadNpmTasks('grunt-mkdir');
+  grunt.loadNpmTasks('grunt-ng-annotate');
 
   // Task(s).
   grunt.registerTask('default', ['debug']);
   grunt.registerTask('common', ['bgShell:stop_server', 'htmllint', 'clean', 'mkdir', 'copy', 'cssmin']);
   grunt.registerTask('debug', ['common', 'browserify:debug', 'htmlmin:debug', 'bgShell:start_server']);
-  grunt.registerTask('dist', ['common', 'browserify:dist', 'uglify', 'htmlmin:dist', 'bgShell:start_server']);
+  grunt.registerTask('dist', ['common', 'browserify:dist', 'ngAnnotate', 'uglify', 'htmlmin:dist', 'bgShell:start_server']);
 
 };
