@@ -79,12 +79,14 @@ module.exports = function(grunt) {
       }
     },
 
-    htmllint: {
+    htmlangular: {
       options: {
-        force: true,
-        htmllintrc: true
+        tmplext: 'html.tmpl',
+        //w3clocal: 'http://w3c-validator.local/nu'
       },
-      src: ['src/**/*.html']
+      files: {
+        src: ['src/views/**/*.html', 'src/views/**/*.html.tmpl']
+      }
     },
 
     htmlmin: {
@@ -96,7 +98,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'src',
-          src: ['**/*.html'],
+          src: ['views/**/*.html', 'views/**/*.html.tmpl'],
           dest: 'build'
         }]
       },
@@ -104,10 +106,14 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'src',
-          src: ['**/*.html'],
+          src: ['views/**/*.html', 'views/**/*.html.tmpl'],
           dest: 'build'
         }]
       }
+    },
+
+    jshint: {
+      all: ['Gruntfile.js', 'src/js/**/*.js']
     },
 
     mkdir: {
@@ -157,15 +163,16 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-htmllint');
+  grunt.loadNpmTasks('grunt-html-angular-validate');
   grunt.loadNpmTasks('grunt-mkdir');
   grunt.loadNpmTasks('grunt-ng-annotate');
 
   // Task(s).
   grunt.registerTask('default', ['debug']);
-  grunt.registerTask('common', ['bgShell:stop_server', 'htmllint', 'clean', 'mkdir', 'copy', 'cssmin']);
+  grunt.registerTask('common', ['bgShell:stop_server', 'htmlangular', 'jshint', 'clean', 'mkdir', 'copy', 'cssmin']);
   grunt.registerTask('debug', ['common', 'browserify:debug', 'htmlmin:debug', 'bgShell:start_server']);
   grunt.registerTask('dist', ['common', 'browserify:dist', 'ngAnnotate', 'uglify', 'htmlmin:dist', 'bgShell:start_server']);
 
