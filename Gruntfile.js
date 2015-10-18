@@ -83,7 +83,7 @@ module.exports = function(grunt) {
     htmlangular: {
       options: {
         tmplext: 'html.tmpl',
-        w3clocal: 'http://w3c-validator.local/nu'
+        //w3clocal: 'http://w3c-validator.local/nu'
       },
       files: {
         src: ['src/app/**/*.html', 'src/app/**/*.html.tmpl']
