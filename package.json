@@ -1,12 +1,31 @@
 { "name" : "web-base",
   "version" : "0.0.0",
   "description" : "Common Node.js modules for web-base.",
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "bootstrap": {
+      "depends": [
+        "jquery: jQuery"
+      ]
+    }
+  },
   "dependencies" : {
     "angular": "latest",
+    "angular-modal-service": "latest",
     "angular-route": "latest",
     "bootstrap": "latest",
-    "browserify": "latest",
     "font-awesome": "latest",
+    "jquery": "latest",
+    "jquery-ui": "latest",
+    "mongoose": "latest"
+  },
+  "devDependencies": {
+    "browserify": "latest",
+    "browserify-shim": "latest",
     "grunt": "latest",
     "grunt-bg-shell": "latest",
     "grunt-browserify": "latest",
@@ -21,10 +40,7 @@
     "grunt-html-angular-validate": "latest",
     "grunt-mkdir": "latest",
     "grunt-ng-annotate": "latest",
-    "http-server": "latest",
-    "jquery": "latest",
-    "jquery-ui": "latest",
-    "mongoose": "latest"
+    "http-server": "latest"
   },
   "scripts": {
     "start": "cd build && http-server -a 127.0.0.1 -p 8000 -c-1"
