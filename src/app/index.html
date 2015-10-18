@@ -1,15 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html ng-app="app" lang="en">
 
   <head>
     <meta charset="utf-8">
     <title id="main_title">Web-base title.</title>
-    <link href="/css/styles.css" type="text/css" rel="stylesheet">
-    <script src="/js/main.js"></script>
+    <link href="/assets/css/styles.css" type="text/css" rel="stylesheet">
+    <script src="/app/app.js"></script>
   </head>
 
   <body>
-    <h1>Boilerplate test page.</h1>
+
+    <h1>Boilerplate test page!</h1>
+    <h2>JQuery and Bootstrap:</h2>
     <div class="container">
       <h2>Some test items:</h2>
       <ul>
@@ -28,14 +30,22 @@
       <div><a href="http://getbootstrap.com/">Boostrap</a> buttons with FA icons:</div>
       <div class="btn-group">
         <a class="btn btn-default btn-lg" id="reload" href="#"><i class="fa fa-refresh fa-lg"></i> Reload</a>
-        <a class="btn btn-info btn-lg" id="info" href="#"><i class="fa fa-info-circle fa-lg"></i> About</a>
+        <a class="btn btn-info btn-lg" id="btn-ua-info" href="#"><i class="fa fa-info-circle fa-lg"></i> About</a>
       </div>
-      <div>
-      <div id="dialog" title="Your browser:">
+      <h2>Angularjs:</h2>
+      <div ng-view></div>
+    </div>
+
+    <div>
+      <div id="dialog-ua-info" title="Your browser is:">
         <p id="ua-info"></p>
       </div>
-      </div>
     </div>
+
+    <div ng-controller="aboutCtrl">
+      <a class="btn btn-default" href="#" ng-click="show()">About</a>
+    </div>
+
   </body>
 
 </html>
