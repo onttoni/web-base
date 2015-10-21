@@ -1,3 +1,4 @@
+// @ngInject
 module.exports = function ($scope, comp1Factory) {
 
   'use strict';

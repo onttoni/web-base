@@ -43,6 +43,6 @@
     "http-server": "latest"
   },
   "scripts": {
-    "start": "cd build && http-server -a 127.0.0.1 -p 8000 -c-1"
+    "start": "cd build/public && http-server -a 127.0.0.1 -p 8000 -c-1"
   }
 }

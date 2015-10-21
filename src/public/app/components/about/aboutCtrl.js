@@ -1,8 +1,9 @@
+// @ngInject
 module.exports = function ($scope, ModalService) {
 
   'use strict';
 
-  $scope.show = function() {
+  $scope.showModal = function() {
     ModalService.showModal({
       templateUrl: 'components/about/about.html.tmpl',
       controller: 'modalCtrl'
@@ -13,5 +14,4 @@ module.exports = function ($scope, ModalService) {
       });
     });
   };
-
 };

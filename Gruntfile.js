@@ -20,9 +20,9 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'src/app',
+          cwd: 'src/public/app',
           src: ['app.js'],
-          dest: 'build/app',
+          dest: 'build/public/app',
           flatten: true
         }]
       },
@@ -34,9 +34,9 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: 'src/app',
+          cwd: 'src/public/app',
           src: ['app.js'],
-          dest: 'build/app',
+          dest: 'build/public/app',
           flatten: true
         }]
       }
@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['node_modules/font-awesome/fonts/*'],
-          dest: 'build/assets/fonts',
+          dest: 'build/public/assets/fonts',
           flatten: true
         }],
       },
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['node_modules/jquery-ui/themes/base/images/*'],
-          dest: 'build/assets/images',
+          dest: 'build/public/assets/images',
           flatten: true
         }]
       },
@@ -70,8 +70,8 @@ module.exports = function(grunt) {
       },
       combine: {
         files: {
-          'build/assets/css/styles.css': [
-            'src/assets/css/styles.css',
+          'build/public/assets/css/styles.css': [
+            'src/public/assets/css/styles.css',
             'node_modules/bootstrap/dist/css/bootstrap.css',
             'node_modules/font-awesome/css/font-awesome.css',
             'node_modules/jquery-ui/themes/base/jquery-ui.css'
@@ -86,7 +86,7 @@ module.exports = function(grunt) {
         //w3clocal: 'http://w3c-validator.local/nu'
       },
       files: {
-        src: ['src/app/**/*.html', 'src/app/**/*.html.tmpl']
+        src: ['src/public/app/**/*.html', 'src/public/app/**/*.html.tmpl']
       }
     },
 
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'src',
-          src: ['app/**/*.html', 'app/**/*.html.tmpl'],
+          src: ['public/app/**/*.html', 'public/app/**/*.html.tmpl'],
           dest: 'build'
         }]
       },
@@ -107,20 +107,20 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'src',
-          src: ['app/**/*.html', 'app/**/*.html.tmpl'],
+          src: ['public/app/**/*.html', 'public/app/**/*.html.tmpl'],
           dest: 'build'
         }]
       }
     },
 
     jshint: {
-      all: ['Gruntfile.js', 'src/app/**/*.js']
+      all: ['Gruntfile.js', 'src/public/app/**/*.js']
     },
 
     mkdir: {
       all: {
         options: {
-          create: ['build']
+          create: ['build/public']
         },
       },
     },
@@ -129,9 +129,9 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'build',
+          cwd: 'build/public',
           src: ['**/*.js'],
-          dest: 'build'
+          dest: 'build/public'
         }]
       }
     },
@@ -143,15 +143,15 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'build',
+          cwd: 'build/public',
           src: ['**/*.js'],
-          dest: 'build'
+          dest: 'build/public'
         }]
       }
     },
 
     watch: {
-      files: [['src/**/*.html'], ['src/**/*.html.tmpl'], ['src/**/*.js'], ['src/**/*.css']],
+      files: [['src/public/**/*.html'], ['src/public/**/*.html.tmpl'], ['src/public/**/*.js'], ['src/public/**/*.css']],
       tasks: ['debug']
     }
 
