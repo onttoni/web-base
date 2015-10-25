@@ -9,20 +9,7 @@ module.exports.controller = function(app, apiPrefix, ngBrd) {
     res.json(Friend.schema.paths);
   });
 
-  // app.get(path, function(req, res) {
-  //   Friend.find({
-  //   },
-  //   'name address',
-  //   function(err, obj) {
-  //     if (err)
-  //       res.send(err)
-  //     res.json(obj);
-  //   });
-  // });
-
-
   app.get(path, function(req, res) {
-    console.log('FIELDS', req.params);
     Friend.find({
     },
     req.query.fields,
@@ -32,7 +19,6 @@ module.exports.controller = function(app, apiPrefix, ngBrd) {
       res.json(obj);
     });
   });
-
 
   app.get(path + ':id', function(req, res) {
     Friend.findOne({
