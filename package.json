@@ -16,18 +16,23 @@
   "dependencies" : {
     "angular": "latest",
     "angular-modal-service": "latest",
+    "angular-resource": "latest",
     "angular-route": "latest",
+    "angular-sanitize": "latest",
+    "body-parser": "latest",
     "bootstrap": "latest",
+    "express": "latest",
     "font-awesome": "latest",
     "jquery": "latest",
     "jquery-ui": "latest",
-    "mongoose": "latest"
+    "method-override": "latest",
+    "mongoose": "latest",
+    "morgan": "latest"
   },
   "devDependencies": {
     "browserify": "latest",
     "browserify-shim": "latest",
     "grunt": "latest",
-    "grunt-bg-shell": "latest",
     "grunt-browserify": "latest",
     "grunt-cli": "latest",
     "grunt-contrib-clean": "latest",
@@ -40,9 +45,9 @@
     "grunt-html-angular-validate": "latest",
     "grunt-mkdir": "latest",
     "grunt-ng-annotate": "latest",
-    "http-server": "latest"
+    "nodemon": "latest"
   },
   "scripts": {
-    "start": "cd build/public && http-server -a 127.0.0.1 -p 8000 -c-1"
+    "start": "./nodemon -w src/server/ src/server/server.js"
   }
 }
