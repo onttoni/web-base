@@ -20,13 +20,15 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 app.use(function (req, res, next) {
   // Custom middleware here.
-  console.log('Path', req.path);
-  console.log('Method', req.method);
-  console.log('Params', req.params);
-  console.log('Query', req.query);
-  console.log('Body', req.body);
+
+  // console.log('Path', req.path);
+  // console.log('Method', req.method);
+  // console.log('Params', req.params);
+  // console.log('Query', req.query);
+  // console.log('Body', req.body);
+
   next();
-})
+});
 
 // Dynamically include routes (Controllers).
 fs.readdirSync('./src/server/controllers').forEach(function (file) {
