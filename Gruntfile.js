@@ -3,19 +3,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    bgShell: {
-      _defaults: {
-        bg: true
-      },
-      start_server: {
-        cmd: 'npm start > /dev/null 2>&1'
-      },
-      stop_server: {
-        cmd: "kill $(ps aux |grep node |grep http-server |tr -s ' ' |cut -d ' ' -f 2) > /dev/null 2>&1",
-        bg: false
-      }
-    },
-
     browserify: {
       dist: {
         files: [{
@@ -83,7 +70,7 @@ module.exports = function(grunt) {
     htmlangular: {
       options: {
         tmplext: 'html.tmpl',
-        //w3clocal: 'http://w3c-validator.local/nu'
+        w3clocal: 'http://w3c-validator.local/nu'
       },
       files: {
         src: ['src/public/app/**/*.html', 'src/public/app/**/*.html.tmpl']
@@ -173,8 +160,8 @@ module.exports = function(grunt) {
 
   // Task(s).
   grunt.registerTask('default', ['debug']);
-  grunt.registerTask('common', ['bgShell:stop_server', 'htmlangular', 'jshint', 'clean', 'mkdir', 'copy', 'cssmin']);
-  grunt.registerTask('debug', ['common', 'browserify:debug', 'htmlmin:debug', 'bgShell:start_server']);
-  grunt.registerTask('dist', ['common', 'browserify:dist', 'ngAnnotate', 'uglify', 'htmlmin:dist', 'bgShell:start_server']);
+  grunt.registerTask('common', ['htmlangular', 'jshint', 'clean', 'mkdir', 'copy', 'cssmin']);
+  grunt.registerTask('debug', ['common', 'browserify:debug', 'htmlmin:debug']);
+  grunt.registerTask('dist', ['common', 'browserify:dist', 'ngAnnotate', 'uglify', 'htmlmin:dist']);
 
 };

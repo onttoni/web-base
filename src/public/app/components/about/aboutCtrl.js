@@ -3,15 +3,20 @@ module.exports = function ($scope, ModalService) {
 
   'use strict';
 
-  $scope.showModal = function() {
+  $scope.about = {};
+
+  $scope.about.showModal = function() {
     ModalService.showModal({
-      templateUrl: 'components/about/about.html.tmpl',
-      controller: 'modalCtrl'
+      templateUrl: 'app/components/about/about.html.tmpl',
+      controller: 'aboutCtrl'
     }).then(function(modal) {
       modal.element.modal();
-      modal.close.then(function(result) {
-        $scope.message = "You said " + result;
-      });
     });
   };
+
+
+  $scope.about.getUa = function() {
+    return navigator.userAgent;
+  };
+
 };

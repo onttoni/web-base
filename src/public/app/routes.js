@@ -1,17 +1,21 @@
 var app = require('angular').module('app');
 
 app.config(function($routeProvider) {
-  
+
     'use strict';
 
     $routeProvider.
     when('/', {
-      templateUrl: 'components/comp1/comp1view.html.tmpl',
+      templateUrl: 'app/components/comp1/testView.html.tmpl',
       controller: 'comp1Ctrl'
     }).
-    when('/view2', {
-      templateUrl: 'components/comp2/comp2view.html.tmpl',
-      controller: 'comp2Ctrl'
+    when('/friends', {
+      templateUrl: 'app/components/friends/friendsListView.html.tmpl',
+      controller: 'friendsCtrl'
+    }).
+    when('/friends/:friendId', {
+      templateUrl: 'app/components/friends/friendsDetailView.html.tmpl',
+      controller: 'friendsCtrl'
     }).
     otherwise({
       redirectTo: '/'

@@ -3,6 +3,11 @@ body {
   color:red; margin:0px;
 }
 
+table .btn {
+  padding: 1px 5px 1px;
+  margin-right: -3px;
+}
+
 
 /* class selectors */
 .a-class {
