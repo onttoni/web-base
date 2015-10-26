@@ -1,19 +1,21 @@
-module.exports = function () {
+var app = require('angular').module('app');
+
+app.factory('comp1Factory', function() {
 
   'use strict';
 
-  var my_factory = {};
+  var myFactory = {};
 
-  my_factory.data = [];
+  myFactory.data = [];
 
-  my_factory.add_data = function(person) {
-    my_factory.data.push(person);
+  myFactory.addData = function(person) {
+    myFactory.data.push(person);
   };
 
-  my_factory.get_data = function() {
-    return my_factory.data;
+  myFactory.getData = function() {
+    return myFactory.data;
   };
-  
-  return my_factory;
 
-};
+  return myFactory;
+
+});

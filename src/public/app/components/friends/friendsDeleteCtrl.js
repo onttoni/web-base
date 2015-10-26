@@ -1,5 +1,6 @@
-// @ngInject
-module.exports = function ($scope, $log, Friend, close, friend) {
+var app = require('angular').module('app');
+
+app.controller('friendsDeleteCtrl', function($scope, $log, Friend, close, friend) {
 
   'use strict';
 
@@ -14,4 +15,4 @@ module.exports = function ($scope, $log, Friend, close, friend) {
     });
   };
 
-};
+});

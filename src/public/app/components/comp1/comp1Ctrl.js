@@ -1,5 +1,6 @@
-// @ngInject
-module.exports = function ($scope) {
+var app = require('angular').module('app');
+
+app.controller('comp1Ctrl', function($scope) {
 
   'use strict';
 
@@ -9,4 +10,4 @@ module.exports = function ($scope) {
     location.reload();
   };
 
-};
+});

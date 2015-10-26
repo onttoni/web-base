@@ -1,11 +1,12 @@
-// @ngInject
-module.exports = function ($resource) {
+var app = require('angular').module('app');
 
-  return $resource("/api/friends/:id", { id: "@_id" },
+app.factory('Friend', function($resource) {
+
+  return $resource('/api/friends/:id', { id: '@_id' },
     {
-      'add':  { method: 'POST' },
-      'update':  { method: 'PUT' },
+      add:  { method: 'POST' },
+      update:  { method: 'PUT' },
     }
   );
 
-};
+});

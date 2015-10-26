@@ -1,16 +1,16 @@
-// @ngInject
-module.exports = function ($log, $routeParams, $scope, ModalService, Friend) {
+var app = require('angular').module('app');
+
+app.controller('friendsCtrl', function($log, $routeParams, $scope, ModalService, Friend) {
 
   'use strict';
 
   $scope.friends = {};
 
-
   $scope.friends.showAddModal = function() {
     $log.debug('Show modal for adding friend');
     ModalService.showModal({
       templateUrl: 'app/components/friends/friendsAdd.html.tmpl',
-      controller: 'friendsAddCtrl'
+      controller: 'friendsAddCtrl',
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(newFriend) {
@@ -19,15 +19,15 @@ module.exports = function ($log, $routeParams, $scope, ModalService, Friend) {
     });
   };
 
-  $scope.friends.showDeleteModal = function(friend_id) {
-    $log.debug('Show modal for confirm friend delete id=' + friend_id);
-    var deletedFriend = Friend.get({ id: friend_id });
+  $scope.friends.showDeleteModal = function(friendId) {
+    $log.debug('Show modal for confirm friend delete id=' + friendId);
+    var deletedFriend = Friend.get({ id: friendId });
     ModalService.showModal({
       templateUrl: 'app/components/friends/friendsDelete.html.tmpl',
       controller: 'friendsDeleteCtrl',
       inputs: {
-        friend: deletedFriend
-      }
+        friend: deletedFriend,
+      },
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(result) {
@@ -61,4 +61,4 @@ module.exports = function ($log, $routeParams, $scope, ModalService, Friend) {
     $log.debug('Got list of friends:', $scope.friends.list);
   }
 
-};
+});

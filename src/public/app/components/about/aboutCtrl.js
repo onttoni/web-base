@@ -1,5 +1,6 @@
-// @ngInject
-module.exports = function ($scope, ModalService) {
+var app = require('angular').module('app');
+
+app.controller('aboutCtrl', function($scope, ModalService) {
 
   'use strict';
 
@@ -8,15 +9,14 @@ module.exports = function ($scope, ModalService) {
   $scope.about.showModal = function() {
     ModalService.showModal({
       templateUrl: 'app/components/about/about.html.tmpl',
-      controller: 'aboutCtrl'
+      controller: 'aboutCtrl',
     }).then(function(modal) {
       modal.element.modal();
     });
   };
 
-
   $scope.about.getUa = function() {
     return navigator.userAgent;
   };
 
-};
+});

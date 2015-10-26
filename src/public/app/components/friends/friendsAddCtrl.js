@@ -1,5 +1,6 @@
-// @ngInject
-module.exports = function ($scope, $log, Friend, close) {
+var app = require('angular').module('app');
+
+app.controller('friendsAddCtrl', function($scope, $log, Friend, close) {
 
   'use strict';
 
@@ -9,9 +10,10 @@ module.exports = function ($scope, $log, Friend, close) {
     $scope.friends.schema = [];
     schema = schema.toJSON();
     Object.getOwnPropertyNames(schema).forEach(function(key) {
-      if(key[0] !== '_') {
+      if (key[0] !== '_') {
         $scope.friends.schema[key] = schema[key].instance;
-    }});
+      }});
+
     $log.debug('Friend schema is', $scope.friends.schema);
     $scope.friends.added = new Friend($scope.friends.schema);
   });
@@ -24,4 +26,4 @@ module.exports = function ($scope, $log, Friend, close) {
     });
   };
 
-};
+});
