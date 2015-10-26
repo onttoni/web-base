@@ -145,7 +145,6 @@ module.exports = function(grunt) {
   });
 
   // Load the needed plugins.
-  grunt.loadNpmTasks('grunt-bg-shell');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
