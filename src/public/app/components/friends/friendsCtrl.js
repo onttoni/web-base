@@ -21,7 +21,7 @@ app.controller('friendsCtrl', function($log, $routeParams, $scope, ModalService,
 
   $scope.friends.showDeleteModal = function(friendId) {
     $log.debug('Show modal for confirm friend delete id=' + friendId);
-    var deletedFriend = Friend.get({ id: friendId });
+    var deletedFriend = Friend.get({id: friendId});
     ModalService.showModal({
       templateUrl: 'app/components/friends/friendsDelete.html.tmpl',
       controller: 'friendsDeleteCtrl',
@@ -38,7 +38,7 @@ app.controller('friendsCtrl', function($log, $routeParams, $scope, ModalService,
 
   $scope.friends.getDetails = function() {
     $log.debug('Getting details for friend with id=' + $routeParams.friendId);
-    Friend.get({ id: $routeParams.friendId, fields: '-__v' },
+    Friend.get({id: $routeParams.friendId, fields: '-__v'},
       function(friend) {
         $log.debug('Got details:', friend);
         $scope.friends.details = friend;
@@ -48,7 +48,7 @@ app.controller('friendsCtrl', function($log, $routeParams, $scope, ModalService,
 
   $scope.friends.update = function() {
     $log.debug('Updating details for friend with id=' + $routeParams.friendId);
-    Friend.update({ id: $routeParams.friendId, update: $scope.friends.details },
+    Friend.update({id: $routeParams.friendId, update: $scope.friends.details},
       function(friend) {
       //$scope.friends.details = friend;
     });
@@ -57,7 +57,7 @@ app.controller('friendsCtrl', function($log, $routeParams, $scope, ModalService,
   if ($routeParams.friendId) {
     $scope.friends.getDetails();
   } else {
-    $scope.friends.list = Friend.query({ fields: 'name address' });
+    $scope.friends.list = Friend.query({fields: 'name address'});
     $log.debug('Got list of friends:', $scope.friends.list);
   }
 

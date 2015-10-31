@@ -1,5 +1,5 @@
 var $ = require('jquery');
 
-$( document ).ready(function() {
+$(document).ready(function() {
   console.info('document ready');
 });

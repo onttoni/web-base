@@ -14,11 +14,11 @@ require('./db').connect();
 console.log('Serving static files from: ' + publicDir);
 app.use(express.static(publicDir));
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ 'extended': 'true' }));
+app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 app.use(methodOverride());
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   // Custom middleware here.
 
   // console.log('Path', req.path);
@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
 });
 
 // Dynamically include routes (Controllers).
-fs.readdirSync('./src/server/controllers').forEach(function (file) {
+fs.readdirSync('./src/server/controllers').forEach(function(file) {
   if (file.substr(-3) == '.js') {
     route = require('./controllers/' + file);
     //route = require(path.join('controllers', file));
@@ -41,8 +41,8 @@ fs.readdirSync('./src/server/controllers').forEach(function (file) {
 
 // The application is served from root.
 app.get('/', function(req, res) {
-  res.sendFile('app/index.html', { root: publicDir });
+  res.sendFile('app/index.html', {root: publicDir});
 });
 
 app.listen(httpPort);
-console.log("App listening on port " + httpPort);
+console.log('App listening on port ' + httpPort);

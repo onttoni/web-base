@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var FriendSchema = new Schema({
   name:  String,
   age: Number,
-  address:   String
+  address:   String,
 });
 
 module.exports = mongoose.model('Friend', FriendSchema);

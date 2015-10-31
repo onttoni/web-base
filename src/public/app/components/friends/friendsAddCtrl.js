@@ -6,7 +6,7 @@ app.controller('friendsAddCtrl', function($scope, $log, Friend, close) {
 
   $scope.friends = {};
 
-  Friend.get({ id: 'schema' }, function(schema) {
+  Friend.get({id: 'schema'}, function(schema) {
     $scope.friends.schema = [];
     schema = schema.toJSON();
     Object.getOwnPropertyNames(schema).forEach(function(key) {

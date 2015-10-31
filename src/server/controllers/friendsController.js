@@ -1,6 +1,5 @@
 var Friend = require('../models/friend');
 
-
 module.exports.controller = function(app, apiPrefix, ngBrd) {
 
   var path = apiPrefix + 'friends/';
@@ -14,8 +13,9 @@ module.exports.controller = function(app, apiPrefix, ngBrd) {
     },
     req.query.fields,
     function(err, obj) {
-      if (err)
-        res.send(err)
+      if (err) {
+        res.send(err);
+      }
       res.json(obj);
     });
   });
@@ -26,8 +26,9 @@ module.exports.controller = function(app, apiPrefix, ngBrd) {
     },
     req.query.fields,
     function(err, obj) {
-      if (err)
-        res.send(err)
+      if (err) {
+        res.send(err);
+      }
       res.json(obj);
     });
   });
@@ -40,8 +41,9 @@ module.exports.controller = function(app, apiPrefix, ngBrd) {
       address: req.body.address
     });
     friend.save(function(err, obj) {
-      if (err)
+      if (err) {
         return res.send(err);
+      }
       res.json(friend);
     });
   });
@@ -52,22 +54,24 @@ module.exports.controller = function(app, apiPrefix, ngBrd) {
       _id: req.body.id
     },
     req.body.update,
-    { upsert: false },
+    {upsert: false},
     function(err, obj) {
-      if (err)
-        res.send(err)
+      if (err) {
+        res.send(err);
+      }
       res.json(obj);
     });
   });
 
   app.delete(path + ':id', function(req, res) {
     Friend.remove({
-      _id : req.params.id
+      _id: req.params.id
     },
     function(err, obj) {
-      if (err)
+      if (err) {
         res.send(err);
+      }
       res.json(obj);
     });
   });
-}
+};

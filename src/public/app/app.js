@@ -6,8 +6,8 @@ require('angular-resource');
 require('angular-route');
 require('angular-sanitize');
 
-var app_deps = [ 'angularModalService', 'ngResource', 'ngRoute', 'ngSanitize' ];
-var app = angular.module('app', app_deps);
+var appDeps = ['angularModalService', 'ngResource', 'ngRoute', 'ngSanitize'];
+var app = angular.module('app', appDeps);
 
 require('./config');
 require('../js/jquery_parts');
