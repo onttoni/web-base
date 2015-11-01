@@ -7,12 +7,24 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 var publicDir = path.join(__dirname, '../../build/public');
-require('./db').connect();
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var mongooseConnection = require('./db').connect();
 
 // All middleware should be placed before routers.
 log.info('Serving static files from:', publicDir);
 app.use(express.static(publicDir));
-app.use(require('express-bunyan-logger')({parseUA: false, format: ':method :url :status-code'}));
+app.use(require('express-bunyan-logger')({
+  parseUA: false,
+  format: ':method :url :status-code'}));
+app.use(session({
+  secret: 'foobar',
+  saveUninitialized: false,
+  resave: false,
+  store: new MongoStore({
+    mongooseConnection: mongooseConnection,
+    touchAfter: 24 * 3600})
+}));
 app.use(bodyParser.urlencoded({extended: 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));

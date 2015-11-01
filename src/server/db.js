@@ -13,6 +13,7 @@ function connect() {
       log.info('MongoDB connected');
     }
   });
+  return mongoose.connection;
 }
 
 module.exports.connect = connect;
