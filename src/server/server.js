@@ -1,23 +1,22 @@
+var log = require('./logger');
 var apiPrefix = '/api/';
 var express = require('express');
 var fs = require('fs');
 var httpPort = 8080;
 var app = express();
-var morgan = require('morgan');
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
 var path = require('path');
 var publicDir = path.join(__dirname, '../../build/public');
 require('./db').connect();
 
 // All middleware should be placed before routers.
-console.log('Serving static files from: ' + publicDir);
+log.info('Serving static files from:', publicDir);
 app.use(express.static(publicDir));
-app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({'extended': 'true'}));
+app.use(require('express-bunyan-logger')({parseUA: false, format: ':method :url :status-code'}));
+app.use(bodyParser.urlencoded({extended: 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
-app.use(methodOverride());
+app.use(require('method-override')());
 app.use(function(req, res, next) {
   // Custom middleware here.
 
@@ -31,10 +30,12 @@ app.use(function(req, res, next) {
 });
 
 // Dynamically include routes (Controllers).
-fs.readdirSync('./src/server/controllers').forEach(function(file) {
-  if (file.substr(-3) == '.js') {
-    route = require('./controllers/' + file);
-    //route = require(path.join('controllers', file));
+var ctrlDir = path.join(__dirname, 'controllers');
+log.debug('Scanning', ctrlDir, 'for controllers.');
+fs.readdirSync(ctrlDir).forEach(function(file) {
+  if (path.extname(file) == '.js') {
+    log.debug('Found', file);
+    route = require(path.join(ctrlDir, file));
     route.controller(app, apiPrefix);
   }
 });
@@ -45,4 +46,4 @@ app.get('/', function(req, res) {
 });
 
 app.listen(httpPort);
-console.log('App listening on port ' + httpPort);
+log.info('Server listening on port', httpPort);

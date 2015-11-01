@@ -1,13 +1,16 @@
+var log = require('./logger');
 var mongoose = require('mongoose');
 var dbUri = 'mongodb://nodeusr:nodepw@mongo01.local:27017/people';
 
 function connect() {
-  console.log('Connecting MongoDB: ' + dbUri);
-  mongoose.connect(dbUri, function(bad, good) {
-    if (bad) {
-      console.log('MongoDB connection failed ' + bad.message);
+  log.info('Connecting MongoDB:', dbUri);
+  mongoose.connect(dbUri, function(err) {
+    if (err) {
+      log.fatal('MongoDB connection failed', err);
+      log.fatal('Bailing out');
+      process.exit(1);
     } else {
-      console.log('MongoDB connected');
+      log.info('MongoDB connected');
     }
   });
 }
