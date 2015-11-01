@@ -43,7 +43,7 @@ module.exports = function(grunt) {
       images: {
         files: [{
           expand: true,
-          src: ['node_modules/jquery-ui/themes/base/images/*'],
+          src: [],
           dest: 'build/public/assets/images',
           flatten: true
         }]

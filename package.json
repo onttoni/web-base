@@ -21,13 +21,14 @@
     "angular-sanitize": "latest",
     "body-parser": "latest",
     "bootstrap": "latest",
+    "bunyan": "latest",
     "express": "latest",
+    "express-bunyan-logger": "latest",
     "font-awesome": "latest",
     "jquery": "latest",
-    "jquery-ui": "latest",
+    "lodash": "latest",
     "method-override": "latest",
-    "mongoose": "latest",
-    "morgan": "latest"
+    "mongoose": "latest"
   },
   "devDependencies": {
     "browserify": "latest",
@@ -48,6 +49,6 @@
     "nodemon": "latest"
   },
   "scripts": {
-    "start": "./nodemon -w src/server/ src/server/server.js"
+    "start": "./nodemon -w src/server/ src/server/server.js |./bunyan -o short -L"
   }
 }
