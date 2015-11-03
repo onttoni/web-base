@@ -10,6 +10,7 @@ var publicDir = path.join(__dirname, '../../build/public');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var mongooseConnection = require('./db').connect();
+var passport = require('passport');
 
 // All middleware should be placed before routers.
 log.info('Serving static files from:', publicDir);
@@ -25,6 +26,8 @@ app.use(session({
     mongooseConnection: mongooseConnection,
     touchAfter: 24 * 3600})
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.urlencoded({extended: 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
