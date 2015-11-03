@@ -30,7 +30,8 @@
     "jquery": "latest",
     "lodash": "latest",
     "method-override": "latest",
-    "mongoose": "latest"
+    "mongoose": "latest",
+    "passport": "latest"
   },
   "devDependencies": {
     "browserify": "latest",
