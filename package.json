@@ -31,7 +31,8 @@
     "lodash": "latest",
     "method-override": "latest",
     "mongoose": "latest",
-    "passport": "latest"
+    "passport": "latest",
+    "passport-local": "latest"
   },
   "devDependencies": {
     "browserify": "latest",
