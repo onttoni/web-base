@@ -1,6 +1,6 @@
 var Friend = require('../models/friend');
 
-module.exports.controller = function(app, apiPrefix, ngBrd) {
+module.exports.controller = function(app, apiPrefix) {
 
   var path = apiPrefix + 'friends/';
 
@@ -40,7 +40,7 @@ module.exports.controller = function(app, apiPrefix, ngBrd) {
       age: req.body.age,
       address: req.body.address
     });
-    friend.save(function(err, obj) {
+    friend.save(function(err) {
       if (err) {
         return res.send(err);
       }
