@@ -1,5 +1,3 @@
-var User = require('../models/user');
-
 module.exports.controller = function(app, apiPrefix, passport) {
 
   var path = apiPrefix + 'users/';
