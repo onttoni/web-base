@@ -43,7 +43,7 @@ module.exports.controller = function(app, apiPrefix, passport) {
   app.get(path, function(req, res) {
     if (req.query.logout) {
       req.logout();
-      return res.status(200).send({msg: 'bad request'});
+      return res.status(200).send({msg: 'ok'});
     }
   });
 
