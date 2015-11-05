@@ -6,8 +6,8 @@ app.config(function($routeProvider) {
 
   $routeProvider.
   when('/', {
-    templateUrl: 'app/components/comp1/testView.html.tmpl',
-    controller: 'comp1Ctrl'
+    templateUrl: 'app/components/home/homeView.html.tmpl',
+    controller: 'homeCtrl'
   }).
   when('/friends', {
     templateUrl: 'app/components/friends/friendsListView.html.tmpl',
@@ -16,6 +16,18 @@ app.config(function($routeProvider) {
   when('/friends/:friendId', {
     templateUrl: 'app/components/friends/friendsDetailView.html.tmpl',
     controller: 'friendsCtrl'
+  }).
+  when('/login', {
+    templateUrl: 'app/components/users/login.html.tmpl',
+    controller: 'usersLoginCtrl'
+  }).
+  when('/logout', {
+    templateUrl: 'app/components/users/logout.html.tmpl',
+    controller: 'usersLogoutCtrl'
+  }).
+  when('/signup', {
+    templateUrl: 'app/components/users/signup.html.tmpl',
+    controller: 'usersSignUpCtrl'
   }).
   otherwise({
     redirectTo: '/'
