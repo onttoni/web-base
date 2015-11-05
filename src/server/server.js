@@ -11,6 +11,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var mongooseConnection = require('./db').connect();
 var passport = require('passport');
+require('./passport')(passport);
 
 // All middleware should be placed before routers.
 log.info('Serving static files from:', publicDir);
@@ -51,7 +52,7 @@ fs.readdirSync(ctrlDir).forEach(function(file) {
   if (path.extname(file) == '.js') {
     log.debug('Found', file);
     route = require(path.join(ctrlDir, file));
-    route.controller(app, apiPrefix);
+    route.controller(app, apiPrefix, passport);
   }
 });
 
