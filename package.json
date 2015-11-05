@@ -19,6 +19,7 @@
     "angular-resource": "latest",
     "angular-route": "latest",
     "angular-sanitize": "latest",
+    "bcrypt-nodejs": "latest",
     "body-parser": "latest",
     "bootstrap": "latest",
     "bunyan": "latest",
