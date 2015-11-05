@@ -2,7 +2,7 @@
 <a ng-href="#/">Show home</a><a href="#/friends">Show friends</a>
 
 <div>
-  <form novalidate>
+  <form class="form-friend-details" novalidate>
     <div class="form-group" ng-repeat="(key, value) in friends.details" ng-if="key!='_id'">
       <label class="text-capitalize">{{ key }}</label>
       <input type="text" class="form-control" ng-model="friends.details[key]">
