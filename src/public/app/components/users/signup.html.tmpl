@@ -1,5 +1,5 @@
 <h2>Sign up</h2>
-<a ng-href="#/">Show Home</a>
+<a ui-sref="home">Show Home</a>
 
 <div>
   <form novalidate>
@@ -20,8 +20,8 @@
       <input type="text" class="form-control" ng-model="users.added.password">
     </div>
     <div>
-      <a ng-href="#/" class="btn btn-default" ng-click="users.signUp()"><i class="fa fa-floppy-o"></i>Save</a>
-      <a ng-href="#/" class="btn btn-default"><i class="fa fa-times"></i>Cancel</a>
+      <a ui-sref="home" class="btn btn-default" ng-click="users.signUp()"><i class="fa fa-floppy-o"></i>Save</a>
+      <a ui-sref="home" class="btn btn-default"><i class="fa fa-times"></i>Cancel</a>
     </div>
   </form>
 </div>

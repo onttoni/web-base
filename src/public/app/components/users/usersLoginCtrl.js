@@ -1,6 +1,6 @@
 var app = require('angular').module('app');
 
-app.controller('usersLoginCtrl', function($log, $routeParams, $scope, User) {
+app.controller('usersLoginCtrl', function($log, $scope, User) {
 
   'use strict';
 

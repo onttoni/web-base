@@ -1,5 +1,5 @@
 <h2>Friend {{ friends.details.name }} details</h2>
-<a ng-href="#/">Show home</a><a href="#/friends">Show friends</a>
+<a ui-sref="home">Show home</a><a ui-sref="friends.list">Show friends</a>
 
 <div>
   <form class="form-friend-details" novalidate>
@@ -8,8 +8,8 @@
       <input type="text" class="form-control" ng-model="friends.details[key]">
     </div>
     <div>
-      <a ng-href="#/friends" class="btn btn-default" ng-click="friends.update()"><i class="fa fa-floppy-o"></i>Save</a>
-      <a ng-href="#/friends" class="btn btn-default"><i class="fa fa-times"></i>Cancel</a>
+      <a ui-sref="friends.list" class="btn btn-default" ng-click="friends.update()"><i class="fa fa-floppy-o"></i>Save</a>
+      <a ui-sref="friends.list" class="btn btn-default"><i class="fa fa-times"></i>Cancel</a>
     </div>
   </form>
 </div>

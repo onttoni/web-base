@@ -1,5 +1,5 @@
 <h2>Friends</h2>
-<a ng-href="#/">Show home</a>
+<a ui-sref="home">Show home</a>
 <a class="btn btn-sm" ng-click="friends.showAddModal()"><i class="fa fa-user-plus"></i>Add a friend</a>
 
 <div>
@@ -11,13 +11,13 @@
       <tr ng-repeat="friend in friends.list">
         <td>{{ $index + 1 }}</td>
         <td>
-          <a ng-href="#/friends/{{ friend._id }}">{{ friend.name }}</a>
+          <a ui-sref="friends.details({friendId: friend._id})">{{ friend.name }}</a>
         </td>
         <td>
           {{ friend.address }}
         </td>
         <td>
-          <a ng-click="friends.showDeleteModal( friend._id )" class="btn btn-default"><i class="fa fa-trash-o"></i>Delete</a>
+          <a ng-click="friends.showDeleteModal(friend._id)" class="btn btn-default"><i class="fa fa-trash-o"></i>Delete</a>
         </td>
       </tr>
     </tbody>

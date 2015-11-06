@@ -1,6 +1,6 @@
 var app = require('angular').module('app');
 
-app.controller('friendsCtrl', function($log, $routeParams, $scope, ModalService, Friend) {
+app.controller('friendsCtrl', function($log, $stateParams, $scope, ModalService, Friend) {
 
   'use strict';
 
@@ -37,8 +37,8 @@ app.controller('friendsCtrl', function($log, $routeParams, $scope, ModalService,
   };
 
   $scope.friends.getDetails = function() {
-    $log.debug('Getting details for friend with id=' + $routeParams.friendId);
-    Friend.get({id: $routeParams.friendId, fields: '-__v'},
+    $log.debug('Getting details for friend with id=' + $stateParams.friendId);
+    Friend.get({id: $stateParams.friendId, fields: '-__v'},
       function(friend) {
         $log.debug('Got details:', friend);
         $scope.friends.details = friend;
@@ -47,14 +47,14 @@ app.controller('friendsCtrl', function($log, $routeParams, $scope, ModalService,
   };
 
   $scope.friends.update = function() {
-    $log.debug('Updating details for friend with id=' + $routeParams.friendId);
-    Friend.update({id: $routeParams.friendId, update: $scope.friends.details},
+    $log.debug('Updating details for friend with id=' + $stateParams.friendId);
+    Friend.update({id: $stateParams.friendId, update: $scope.friends.details},
       function(friend) {
       //$scope.friends.details = friend;
     });
   };
 
-  if ($routeParams.friendId) {
+  if ($stateParams.friendId) {
     $scope.friends.getDetails();
   } else {
     $scope.friends.list = Friend.query({fields: 'name address'});

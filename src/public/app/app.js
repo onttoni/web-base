@@ -3,10 +3,10 @@ require('bootstrap');
 require('angular');
 require('angular-modal-service');
 require('angular-resource');
-require('angular-route');
+require('angular-ui-router');
 require('angular-sanitize');
 
-var appDeps = ['angularModalService', 'ngResource', 'ngRoute', 'ngSanitize'];
+var appDeps = ['angularModalService', 'ngResource', 'ngSanitize', 'ui.router'];
 var app = angular.module('app', appDeps);
 
 require('./config');
