@@ -20,12 +20,12 @@ module.exports = function(passport) {
   },
   function(req, email, password, done) {
     process.nextTick(function() {
-      User.findOne({'email':  email}, function(err, user) {
+      User.findOne({'email': email}, function(err, user) {
         if (err) {
-          return done(err);
+          return done(err, false);
         }
         if (user) {
-          return done(null, false);
+          return done({msg: 'email is taken already'}, false);
         } else {
           var newUser = new User();
           newUser.email = email;
@@ -51,13 +51,13 @@ module.exports = function(passport) {
   function(req, email, password, done) {
     User.findOne({'email': email}, function(err, user) {
       if (err) {
-        return done(err);
+        return done(err, false);
       }
       if (!user) {
-        return done(null, false);
+        return done({msg: 'not found'}, false);
       }
       if (!user.validPassword(password)) {
-        return done(null, false);
+        return done({msg: 'invalid password'}, false);
       }
       return done(null, user);
     });
