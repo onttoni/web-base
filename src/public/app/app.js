@@ -16,4 +16,4 @@ require('./components/about');
 require('./components/home');
 require('./components/friends');
 require('./components/users');
-require('./routes');
+require('./states');
