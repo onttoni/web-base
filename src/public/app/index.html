@@ -3,16 +3,14 @@
 
   <head>
     <meta charset="utf-8">
+    <base href="/"/>
     <title id="main-title">Web-base title.</title>
     <link href="/assets/css/styles.css" type="text/css" rel="stylesheet">
     <script src="/app/app.js"></script>
   </head>
 
   <body>
-    <header>
-      <div ng-include="'/app/shared/views/navbar.html.tmpl'"></div>
-    </header>
-    <div ui-view class="container"></div>
+    <div ui-view="app"></div>
   </body>
 
 </html>
