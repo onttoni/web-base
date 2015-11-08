@@ -8,6 +8,9 @@ table .btn {
   margin-right: -3px;
 }
 
+a > i.fa {
+  padding-right: 2px;
+}
 
 /* class selectors */
 .a-class {
