@@ -29,21 +29,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'app/components/home/homeView.html.tmpl',
       controller: 'homeCtrl'
     }).
-    state('app.friends', {
-      abstract: true,
-      url: '/friends',
-      template: '<ui-view></ui-view>'
-    }).
-    state('app.friends.list', {
-      url: '/list',
-      templateUrl: 'app/components/friends/friendsListView.html.tmpl',
-      controller: 'friendsCtrl'
-    }).
-    state('app.friends.details', {
-      url: '/details/:friendId',
-      templateUrl: 'app/components/friends/friendsDetailView.html.tmpl',
-      controller: 'friendsCtrl'
-    }).
     state('app.users', {
       abstract: true,
       template: '<ui-view></ui-view>'

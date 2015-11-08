@@ -1,5 +1,5 @@
 <h2>Friends</h2>
-<a class="btn btn-sm" ng-click="friends.showAddModal()"><i class="fa fa-user-plus"></i>Add a friend</a>
+<a class="btn btn-sm" ui-sref="app.friends.add"><i class="fa fa-user-plus"></i>Add a friend</a>
 <div>
   <table class="table table-hover table-striped table-bordered">
     <thead>
@@ -15,7 +15,7 @@
           {{ friend.address }}
         </td>
         <td>
-          <a ng-click="friends.showDeleteModal(friend._id)" class="btn btn-default"><i class="fa fa-trash-o"></i>Delete</a>
+          <a ui-sref="app.friends.delete({friendId: friend._id})" class="btn btn-default"><i class="fa fa-trash-o"></i>Delete</a>
         </td>
       </tr>
     </tbody>

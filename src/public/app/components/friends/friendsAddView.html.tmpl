@@ -1,0 +1,13 @@
+<h2>Add friend</h2>
+<div>
+  <form class="form-friend-add" novalidate>
+    <div class="form-group" ng-repeat="(key, value) in friends.added">
+      <label class="text-capitalize">{{ key }}</label>
+      <input type="text" class="form-control" ng-model="friends.added[key]">
+    </div>
+    <div>
+      <a ui-sref="app.friends.list" class="btn btn-default" ng-click="friends.save()"><i class="fa fa-floppy-o"></i>Save</a>
+      <a ui-sref="app.friends.list" class="btn btn-default"><i class="fa fa-times"></i>Cancel</a>
+    </div>
+  </form>
+</div>

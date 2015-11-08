@@ -1,7 +1,7 @@
 var app = require('angular').module('app');
 
-app.controller('friendsDeleteCtrl', function($scope, $log, Friend, close, friend) {
-
+app.controller('friendsDeleteCtrl', function($scope, $log, Friend) {
+/*
   'use strict';
 
   $scope.friends = {};
@@ -14,5 +14,5 @@ app.controller('friendsDeleteCtrl', function($scope, $log, Friend, close, friend
       close(result, 200);
     });
   };
-
+*/
 });
