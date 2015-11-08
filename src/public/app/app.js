@@ -6,7 +6,7 @@ require('angular-resource');
 require('angular-ui-router');
 require('angular-sanitize');
 
-var appDeps = ['angularModalService', 'ngResource', 'ngSanitize', 'ui.router'];
+var appDeps = ['angularModalService', 'ct.ui.router.extras', 'ngResource', 'ngSanitize', 'ui.router'];
 var app = angular.module('app', appDeps);
 
 require('./config');

@@ -33,7 +33,8 @@
     "method-override": "latest",
     "mongoose": "latest",
     "passport": "latest",
-    "passport-local": "latest"
+    "passport-local": "latest",
+    "ui-router-extras": "latest"
   },
   "devDependencies": {
     "browserify": "latest",
