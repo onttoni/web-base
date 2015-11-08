@@ -7,7 +7,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider.
-
     state('app', {
       url: '',
       abstract: true,
@@ -28,24 +27,5 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/',
       templateUrl: 'app/components/home/homeView.html.tmpl',
       controller: 'homeCtrl'
-    }).
-    state('app.users', {
-      abstract: true,
-      template: '<ui-view></ui-view>'
-    }).
-    state('app.users.login', {
-      url: '/login',
-      templateUrl: 'app/components/users/login.html.tmpl',
-      controller: 'usersLoginCtrl'
-    }).
-    state('app.users.logout', {
-      url: '/logout',
-      templateUrl: 'app/components/users/logout.html.tmpl',
-      controller: 'usersLogoutCtrl'
-    }).
-    state('app.users.signup', {
-      url: '/signup',
-      templateUrl: 'app/components/users/signup.html.tmpl',
-      controller: 'usersSignUpCtrl'
     });
 });

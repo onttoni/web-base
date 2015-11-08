@@ -7,6 +7,7 @@ app.config(function($stateProvider) {
   var previousState;
 
   $stateProvider.state('about', {
+    url: '/about',
     onEnter: function($stateParams, $state, $previousState, $uibModal) {
       previousState = $previousState.memo('previousState');
       $uibModal.open({
