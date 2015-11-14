@@ -25,10 +25,8 @@ app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Frien
         return;
       }
       var data = {};
-      Object.getOwnPropertyNames($scope.friends.details.schema.paths).forEach(function(key) {
-        if (key[0] != '_') {
-          data[key] = $scope.friends.details[key];
-        }
+      $scope.friends.details.displayFields().forEach(function(key) {
+        data[key] = $scope.friends.details[key];
       });
       Friend.update({id: $stateParams.friendId, update: data}, function(friend) {
         $log.debug('Friend updated', friend);

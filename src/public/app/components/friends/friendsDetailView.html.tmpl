@@ -1,9 +1,9 @@
 <h2>Friend {{friends.details.name}} details</h2>
 <div>
   <form name="formFriendDetails" class="form-friend-details" ng-submit="friends.update()" novalidate>
-    <div class="form-group" ng-repeat="(key, value) in friends.details.schema.paths" ng-if="key[0]!='_'">
-      <label class="text-capitalize">{{key}}</label>
-      <input type="text" class="form-control" ng-model="friends.details[key]" required>
+    <div class="form-group" ng-repeat="field in friends.details.displayFields()">
+      <label class="text-capitalize">{{field}}</label>
+      <input type="text" class="form-control" ng-model="friends.details[field]" required>
     </div>
     <div>
       <button class="btn btn-default" type="submit" ng-disabled="formFriendDetails.$invalid"><i class="fa fa-floppy-o"></i>Save</button>

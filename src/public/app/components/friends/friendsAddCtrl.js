@@ -18,10 +18,8 @@ app.controller('friendsAddCtrl', function($log, $scope, $state, Friend) {
         return;
       }
       var data = {};
-      Object.getOwnPropertyNames($scope.friends.added).forEach(function(key) {
-        if (key[0] !== '_') {
-          data[key] = $scope.friends.added[key];
-        }
+      $scope.friends.added.displayFields().forEach(function(key) {
+        data[key] = $scope.friends.added[key];
       });
       new Friend(data).$save(function(newFriend) {
         $log.debug('New friend is', newFriend);
