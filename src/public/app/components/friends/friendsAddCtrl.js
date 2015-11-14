@@ -1,5 +1,5 @@
 var app = require('angular').module('app');
-var friendSchema = require('../../../../server/models/friendSchema');
+var friendSchema = require('models/friendSchema');
 
 app.controller('friendsAddCtrl', function($log, $scope, $state, Friend) {
 

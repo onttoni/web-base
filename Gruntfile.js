@@ -5,6 +5,11 @@ module.exports = function(grunt) {
 
     browserify: {
       dist: {
+        options: {
+          browserifyOptions: {
+            paths: ['./src/server']
+          }
+        },
         files: [{
           expand: true,
           cwd: 'src/public/app',
@@ -16,7 +21,8 @@ module.exports = function(grunt) {
       debug: {
         options: {
           browserifyOptions: {
-            debug: true
+            debug: true,
+            paths: ['./src/server']
           }
         },
         files: [{
