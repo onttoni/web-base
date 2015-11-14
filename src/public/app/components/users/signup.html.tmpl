@@ -1,24 +1,12 @@
 <h2>Sign up</h2>
 <div>
-  <form class="form-user-signup" novalidate>
-    <div class="form-group">
-      <label class="">First Name</label>
-      <input type="text" class="form-control" ng-model="users.added.firstName" required>
-    </div>
-    <div class="form-group">
-      <label class="">Last Name</label>
-      <input type="text" class="form-control" ng-model="users.added.lastName" required>
-    </div>
-    <div class="form-group">
-      <label class="">Email</label>
-      <input type="text" class="form-control" ng-model="users.added.email" required>
-    </div>
-    <div class="form-group">
-      <label class="">Password</label>
-      <input type="password" class="form-control" ng-model="users.added.password" required>
+  <form name="formUserSignup" class="form-user-signup" ng-submit="users.signUp()" novalidate>
+    <div class="form-group" ng-repeat="field in users.added.displayFields()">
+      <label class="text-capitalize">{{field}}</label>
+      <input type="text" class="form-control" ng-model="users.added[field]" required>
     </div>
     <div>
-      <a ui-sref="app.home" class="btn btn-default" ng-click="users.signUp()"><i class="fa fa-floppy-o"></i>Save</a>
+      <button class="btn btn-default" type="submit" ng-disabled="formUserSignup.$invalid"><i class="fa fa-floppy-o"></i>Save</button>
       <a ui-sref="app.home" class="btn btn-default"><i class="fa fa-times"></i>Cancel</a>
     </div>
   </form>
