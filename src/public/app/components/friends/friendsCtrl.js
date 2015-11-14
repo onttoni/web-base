@@ -1,6 +1,7 @@
 var app = require('angular').module('app');
+var friendSchema = require('../../../../server/models/friendSchema');
 
-app.controller('friendsCtrl', function($log, $stateParams, $scope, Friend) {
+app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Friend) {
 
   'use strict';
 
@@ -11,16 +12,28 @@ app.controller('friendsCtrl', function($log, $stateParams, $scope, Friend) {
     Friend.get({id: $stateParams.friendId, fields: '-__v'},
       function(friend) {
         $log.debug('Got details:', friend);
-        $scope.friends.details = friend;
+        $scope.friends.details = mongoose.Document(friend, friendSchema);
       }
     );
   };
 
   $scope.friends.update = function() {
     $log.debug('Updating details for friend with id=' + $stateParams.friendId);
-    Friend.update({id: $stateParams.friendId, update: $scope.friends.details},
-      function(friend) {
-      //$scope.friends.details = friend;
+    $scope.friends.details.validate(function(err) {
+      if (err) {
+        $log.debug('Validation error when updating friend', err.errors);
+        return;
+      }
+      var data = {};
+      Object.getOwnPropertyNames($scope.friends.details.schema.paths).forEach(function(key) {
+        if (key[0] != '_') {
+          data[key] = $scope.friends.details[key];
+        }
+      });
+      Friend.update({id: $stateParams.friendId, update: data}, function(friend) {
+        $log.debug('Friend updated', friend);
+      });
+      $state.go('app.friends.list');
     });
   };
 

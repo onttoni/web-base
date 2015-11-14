@@ -1,12 +1,12 @@
-<h2>Friend {{ friends.details.name }} details</h2>
+<h2>Friend {{friends.details.name}} details</h2>
 <div>
-  <form class="form-friend-details" novalidate>
-    <div class="form-group" ng-repeat="(key, value) in friends.details" ng-if="key!='_id'">
-      <label class="text-capitalize">{{ key }}</label>
-      <input type="text" class="form-control" ng-model="friends.details[key]">
+  <form name="formFriendDetails" class="form-friend-details" ng-submit="friends.update()" novalidate>
+    <div class="form-group" ng-repeat="(key, value) in friends.details.schema.paths" ng-if="key[0]!='_'">
+      <label class="text-capitalize">{{key}}</label>
+      <input type="text" class="form-control" ng-model="friends.details[key]" required>
     </div>
     <div>
-      <a ui-sref="app.friends.list" class="btn btn-default" ng-click="friends.update()"><i class="fa fa-floppy-o"></i>Save</a>
+      <button class="btn btn-default" type="submit" ng-disabled="formFriendDetails.$invalid"><i class="fa fa-floppy-o"></i>Save</button>
       <a ui-sref="app.friends.list" class="btn btn-default"><i class="fa fa-times"></i>Cancel</a>
     </div>
   </form>
