@@ -33,6 +33,7 @@ app.config(function($stateProvider) {
         previousState = $previousState.memo('previousState');
         $uibModal.open({
           templateUrl: 'app/components/friends/friendsDelete.html.tmpl',
+          // @ngInject
           controller: function($scope, $log, Friend, $uibModalInstance) {
             // FIXME: Controller from a separate module.
             $scope.friends = {};
