@@ -35,11 +35,7 @@ module.exports.controller = function(app, apiPrefix) {
 
   // Add friend
   app.post(path, function(req, res) {
-    var friend = new Friend({
-      name: req.body.name,
-      age: req.body.age,
-      address: req.body.address
-    });
+    var friend = new Friend(req.body.add);
     friend.save(function(err) {
       if (err) {
         return res.send(err);
