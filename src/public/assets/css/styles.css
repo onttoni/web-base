@@ -12,6 +12,10 @@ a > i.fa {
   padding-right: 2px;
 }
 
+button > i.fa {
+  padding-right: 2px;
+}
+
 /* class selectors */
 .a-class {
   color:blue;
