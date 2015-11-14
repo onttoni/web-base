@@ -38,7 +38,7 @@ app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Frien
   if ($stateParams.friendId) {
     $scope.friends.getDetails();
   } else {
-    $scope.friends.list = Friend.query({fields: 'name address'});
+    $scope.friends.list = Friend.query({fields: 'firstName lastName address'});
     $log.debug('Got list of friends:', $scope.friends.list);
   }
 
