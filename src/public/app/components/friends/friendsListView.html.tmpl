@@ -9,7 +9,7 @@
       <tr ng-repeat="friend in friends.list">
         <td>{{ $index + 1 }}</td>
         <td>
-          <a ui-sref="app.friends.details({friendId: friend._id})">{{ friend.name }}</a>
+          <a ui-sref="app.friends.details({friendId: friend._id})">{{ friend.firstName + ' ' + friend.lastName }}</a>
         </td>
         <td>
           {{ friend.address }}
