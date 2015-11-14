@@ -1,10 +1,4 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var schema = require('./friendSchema');
 
-var FriendSchema = new Schema({
-  name: String,
-  age: Number,
-  address: String,
-});
-
-module.exports = mongoose.model('Friend', FriendSchema);
+module.exports = mongoose.model('Friend', schema);
