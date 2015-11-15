@@ -57,7 +57,7 @@ fs.readdirSync(ctrlDir).forEach(function(file) {
 });
 
 // The application is served from root.
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
   res.sendFile('app/index.html', {root: publicDir});
 });
 
