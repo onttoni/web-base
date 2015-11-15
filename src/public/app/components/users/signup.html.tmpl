@@ -3,7 +3,8 @@
   <form name="formUserSignup" class="form-user-signup" ng-submit="users.signUp()" novalidate>
     <div class="form-group" ng-repeat="field in users.added.displayFields()">
       <label class="text-capitalize">{{field}}</label>
-      <input type="text" class="form-control" ng-model="users.added[field]" required>
+      <input type="text" class="form-control" ng-model="users.added[field]" ng-if="field!='password'" required/>
+      <input type="password" class="form-control" ng-model="users.added[field]" ng-if="field=='password'" required/>
     </div>
     <div>
       <button class="btn btn-default" type="submit" ng-disabled="formUserSignup.$invalid"><i class="fa fa-floppy-o"></i>Save</button>
