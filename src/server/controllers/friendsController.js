@@ -4,10 +4,6 @@ module.exports.controller = function(app, apiPrefix) {
 
   var path = apiPrefix + 'friends/';
 
-  app.get(path + 'schema', function(req, res) {
-    res.json(Friend.schema.paths);
-  });
-
   app.get(path, function(req, res) {
     Friend.find({
     },
