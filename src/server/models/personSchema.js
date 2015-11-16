@@ -15,7 +15,8 @@ function PersonSchema() {
       type: String,
       required: true,
       validate: [validateEmail, 'Please fill a valid email address.']
-    }
+    },
+    created: Date
   });
 }
 

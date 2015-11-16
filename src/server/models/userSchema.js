@@ -2,8 +2,7 @@ var bcrypt   = require('bcrypt-nodejs');
 var PersonSchema = require('./personSchema');
 
 var UserSchema = new PersonSchema({
-  password: {type: String, required: true},
-  created: Date
+  password: {type: String, required: true}
 });
 
 UserSchema.methods.generateHash = function(password) {
