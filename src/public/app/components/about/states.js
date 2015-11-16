@@ -8,21 +8,11 @@ app.config(function($stateProvider) {
 
   $stateProvider.state('about', {
     url: '/about',
-    onEnter: function($stateParams, $state, $previousState, $uibModal) {
+    onEnter: function($previousState, $uibModal) {
       previousState = $previousState.memo('previousState');
       $uibModal.open({
         templateUrl: 'app/components/about/about.html.tmpl',
-        // @ngInject
-        controller: function($scope, $uibModalInstance) {
-          // FIXME: Controller from a separate module.
-          $scope.about = {};
-          $scope.about.ok = function() {
-            $uibModalInstance.close();
-          };
-          $scope.about.getUa = function() {
-            return navigator.userAgent;
-          };
-        }
+        controller: 'aboutCtrl'
       }).result.finally(function() {
         $previousState.go('previousState');
       });

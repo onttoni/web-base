@@ -1,18 +1,21 @@
 var app = require('angular').module('app');
 
-app.controller('friendsDeleteCtrl', function($scope, $log, Friend) {
-/*
+app.controller('friendsDeleteCtrl', function($log, $scope, $stateParams, $uibModalInstance, Friend) {
+
   'use strict';
 
   $scope.friends = {};
-  $scope.friends.deleted = friend;
+  $scope.friends.deleted = Friend.get({id: $stateParams.friendId});
 
-  $scope.friends.delete = function() {
-    $log.debug('Deleting friend with id=' + friend._id);
-    Friend.delete({id: friend._id}, function(result) {
+  $scope.friends.delete = function(friendId) {
+    $log.debug('Deleting friend with id=' + friendId);
+    Friend.delete({id: friendId}, function(result) {
       $log.debug('Deletion result', result);
-      close(result, 200);
+      $uibModalInstance.close();
     });
   };
-*/
+
+  $scope.friends.close = function() {
+    $uibModalInstance.close();
+  };
 });

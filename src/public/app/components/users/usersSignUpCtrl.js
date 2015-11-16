@@ -21,8 +21,8 @@ app.controller('usersSignUpCtrl', function($log, $scope, $state, User) {
       });
       new User(data).$signUp(function(newUser) {
         $log.debug('New user is', newUser);
+        $state.go('app.home');
       });
-      $state.go('app.home');
     });
   };
 });

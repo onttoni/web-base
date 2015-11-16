@@ -17,26 +17,7 @@ app.config(function($stateProvider) {
         previousState = $previousState.memo('previousState');
         $uibModal.open({
           templateUrl: 'app/components/users/login.html.tmpl',
-          // @ngInject
-          controller: function($scope, $log, User, $uibModalInstance) {
-            // FIXME: Controller from a separate module.
-            $scope.users = {};
-            $scope.users.loggedIn = new User();
-            $scope.users.login = function() {
-              $log.debug('User is logging in', $scope.users.loggedIn);
-              $scope.users.loggedIn.$login(
-                function(user) {
-                  $log.debug('user logged in', user);
-                  $uibModalInstance.close();
-                },
-                function(err) {
-                  $log.debug('login failed', err);
-                });
-            };
-            $scope.users.cancel = function() {
-              $uibModalInstance.close();
-            };
-          }
+          controller: 'usersLoginCtrl'
         }).result.finally(function() {
           $previousState.go('previousState');
         });

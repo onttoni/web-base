@@ -29,26 +29,11 @@ app.config(function($stateProvider) {
     }).
     state('app.friends.delete', {
       url: '/delete/:friendId',
-      onEnter: function($stateParams, $state, $previousState, $uibModal) {
+      onEnter: function($previousState, $uibModal) {
         previousState = $previousState.memo('previousState');
         $uibModal.open({
           templateUrl: 'app/components/friends/friendsDelete.html.tmpl',
-          // @ngInject
-          controller: function($scope, $log, Friend, $uibModalInstance) {
-            // FIXME: Controller from a separate module.
-            $scope.friends = {};
-            $scope.friends.deleted = Friend.get({id: $stateParams.friendId});
-            $scope.friends.delete = function(friendId) {
-              $log.debug('Deleting friend with id=' + friendId);
-              Friend.delete({id: friendId}, function(result) {
-                $log.debug('Deletion result', result);
-                $uibModalInstance.close();
-              });
-            };
-            $scope.friends.close = function() {
-              $uibModalInstance.close();
-            };
-          }
+          controller: 'friendsDeleteCtrl'
         }).result.finally(function() {
           $previousState.go('previousState');
         });
