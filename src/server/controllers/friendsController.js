@@ -10,9 +10,9 @@ module.exports.controller = function(app, apiPrefix) {
     req.query.fields,
     function(err, obj) {
       if (err) {
-        res.send(err);
+        return res.status(500).send({msg: 'internal server error'});
       }
-      res.json(obj);
+      return res.json(obj);
     });
   });
 
@@ -23,9 +23,12 @@ module.exports.controller = function(app, apiPrefix) {
     req.query.fields,
     function(err, obj) {
       if (err) {
-        res.send(err);
+        return res.status(400).send({msg: 'bad request'});
       }
-      res.json(obj);
+      if (!obj) {
+        return res.status(404).send({msg: 'not found'});
+      }
+      return res.json(obj);
     });
   });
 
@@ -34,9 +37,9 @@ module.exports.controller = function(app, apiPrefix) {
     var friend = new Friend(req.body.add);
     friend.save(function(err) {
       if (err) {
-        return res.send(err);
+        return res.status(400).send({msg: 'bad request'});
       }
-      res.json(friend);
+      return res.json(friend);
     });
   });
 
@@ -46,12 +49,15 @@ module.exports.controller = function(app, apiPrefix) {
       _id: req.body.id
     },
     req.body.update,
-    {upsert: false},
+    {new: true, upsert: false},
     function(err, obj) {
       if (err) {
-        res.send(err);
+        return res.status(400).send({msg: 'bad request'});
       }
-      res.json(obj);
+      if (!obj) {
+        return res.status(404).send({msg: 'not found'});
+      }
+      return res.json(obj);
     });
   });
 
@@ -61,9 +67,12 @@ module.exports.controller = function(app, apiPrefix) {
     },
     function(err, obj) {
       if (err) {
-        res.send(err);
+        return res.status(400).send({msg: 'bad request'});
       }
-      res.json(obj);
+      if (!obj) {
+        return res.status(404).send({msg: 'not found'});
+      }
+      return res.json(obj);
     });
   });
 };
