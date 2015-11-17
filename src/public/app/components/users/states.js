@@ -18,8 +18,18 @@ app.config(function($stateProvider) {
         $uibModal.open({
           templateUrl: 'app/components/users/login.html.tmpl',
           controller: 'usersLoginCtrl'
-        }).result.finally(function() {
-          $previousState.go('previousState');
+        }).result.then(function(loginStatus) {
+          switch (loginStatus) {
+            case 'loginSuccess':
+              $previousState.go('previousState');
+              break;
+            case 'loginCancelled':
+              $state.go('app.home');
+              break;
+            case 'signUp':
+              $state.go('app.users.signup');
+              break;
+          }
         });
       }
     }).

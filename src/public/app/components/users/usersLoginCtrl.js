@@ -8,18 +8,22 @@ app.controller('usersLoginCtrl', function($log, $scope, $uibModalInstance, User)
   $scope.users.loggedIn = new User();
 
   $scope.users.login = function() {
-    $log.debug('User is logging in', $scope.users.loggedIn);
     $scope.users.loggedIn.$login(
-      function(user) {
-        $log.debug('user logged in', user);
-        $uibModalInstance.close();
+      function() {
+        $log.debug('User login success', $scope.users.loggedIn);
+        $uibModalInstance.close('loginSuccess');
       },
-      function(err) {
-        $log.debug('login failed', err);
+      function() {
+        $log.debug('User login failed', $scope.users.loggedIn);
       });
   };
 
   $scope.users.cancel = function() {
-    $uibModalInstance.close();
+    $uibModalInstance.close('loginCancelled');
   };
+
+  $scope.users.signUp = function() {
+    $uibModalInstance.close('signUp');
+  };
+
 });
