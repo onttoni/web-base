@@ -1,1 +1,2 @@
-require('./filters/sanitize');
+require('./filters/index');
+require('./interceptors/index');
