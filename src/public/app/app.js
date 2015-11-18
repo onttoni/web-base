@@ -16,6 +16,7 @@ require('./config');
 require('../js/jquery_parts');
 require('./shared');
 require('./components/about');
+require('./components/chat');
 require('./components/home');
 require('./components/friends');
 require('./components/users');

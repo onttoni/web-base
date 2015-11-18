@@ -63,5 +63,12 @@ app.get('*', function(req, res) {
   res.sendFile('app/index.html', {root: publicDir});
 });
 
-app.listen(httpPort);
+server.listen(httpPort);
 log.info('Server listening on port', httpPort);
+
+io.on('connection', function(socket) {
+  socket.emit('news', {hello: 'world'});
+  socket.on('my other event', function(data) {
+    log.debug(data);
+  });
+});
