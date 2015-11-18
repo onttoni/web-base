@@ -1,6 +1,18 @@
 /* element selectors */
+a {
+  cursor: pointer;
+}
+
+a > i.fa {
+  padding-right: 2px;
+}
+
 body {
   color:red; margin:0px;
+}
+
+button > i.fa {
+  padding-right: 2px;
 }
 
 table .btn {
@@ -8,13 +20,6 @@ table .btn {
   margin-right: -3px;
 }
 
-a > i.fa {
-  padding-right: 2px;
-}
-
-button > i.fa {
-  padding-right: 2px;
-}
 
 /* class selectors */
 .a-class {
