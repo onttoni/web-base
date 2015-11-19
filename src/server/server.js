@@ -8,10 +8,24 @@ var server = require('http').Server(app);
 var bodyParser = require('body-parser');
 var path = require('path');
 var publicDir = path.join(__dirname, '../../build/public');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+var expressSession = require('express-session');
+var MongoStore = require('connect-mongo')(expressSession);
 var mongooseConnection = require('./db').connect();
 var passport = require('passport');
+var socketIo = require('socket.io')(server);
+
+var session = expressSession({
+  secret: 'foobar',
+  saveUninitialized: false,
+  resave: false,
+  store: new MongoStore({
+    mongooseConnection: mongooseConnection,
+    touchAfter: 24 * 3600})
+});
+socketIo.use(function(socket, next) {
+  session(socket.request, {}, next);
+});
+var io = socketIo.listen(server);
 require('./passport')(passport);
 
 // All middleware should be placed before routers.
@@ -20,14 +34,7 @@ app.use(express.static(publicDir));
 app.use(require('express-bunyan-logger')({
   parseUA: false,
   format: ':method :url :status-code'}));
-app.use(session({
-  secret: 'foobar',
-  saveUninitialized: false,
-  resave: false,
-  store: new MongoStore({
-    mongooseConnection: mongooseConnection,
-    touchAfter: 24 * 3600})
-}));
+app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({extended: 'true'}));
@@ -64,7 +71,7 @@ fs.readdirSync(sckDir).forEach(function(file) {
   if (path.extname(file) == '.js') {
     log.debug('Found', file);
     socket = require(path.join(sckDir, file));
-    socket.listen(server);
+    socket.listen(io);
   }
 });
 
