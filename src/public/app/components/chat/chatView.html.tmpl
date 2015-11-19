@@ -1,4 +1,14 @@
 <h2>Chat</h2>
 <div>
-
+  <form name="formChat" class="form-chat" novalidate>
+    <div class="form-group">
+      <div ng-repeat="msg in chat.output track by $index">{{msg}}</div>
+    </div>
+  </form>
+  <form class="form-inline">
+    <div class="form-group">
+      <input type="text" class="form-control" name="inputChat" placeholder="Say something" ng-model="chat.input">
+    </div>
+    <button class="btn btn-default" type="submit" ng-click="chat.send()" ng-disabled=""><i class="fa fa-lightbulb-o"></i>Send</button>
+  </form>
 </div>
