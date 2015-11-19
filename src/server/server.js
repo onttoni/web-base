@@ -5,7 +5,6 @@ var fs = require('fs');
 var httpPort = require('./config').express.httpPort;
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var path = require('path');
 var publicDir = path.join(__dirname, '../../build/public');
@@ -58,6 +57,17 @@ fs.readdirSync(ctrlDir).forEach(function(file) {
   }
 });
 
+// Dynamically include sockets.
+var sckDir = path.join(__dirname, 'sockets');
+log.debug('Scanning', sckDir, 'for sockets.');
+fs.readdirSync(sckDir).forEach(function(file) {
+  if (path.extname(file) == '.js') {
+    log.debug('Found', file);
+    socket = require(path.join(sckDir, file));
+    socket.listen(server);
+  }
+});
+
 // The application is served from root.
 app.get('*', function(req, res) {
   res.sendFile('app/index.html', {root: publicDir});
@@ -65,10 +75,3 @@ app.get('*', function(req, res) {
 
 server.listen(httpPort);
 log.info('Server listening on port', httpPort);
-
-io.on('connection', function(socket) {
-  socket.emit('news', {hello: 'world'});
-  socket.on('my other event', function(data) {
-    log.debug(data);
-  });
-});
