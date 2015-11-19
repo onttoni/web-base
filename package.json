@@ -32,6 +32,7 @@
     "jquery": "latest",
     "lodash": "latest",
     "method-override": "latest",
+    "moment": "latest",
     "mongoose": "latest",
     "passport": "latest",
     "passport-local": "latest",
