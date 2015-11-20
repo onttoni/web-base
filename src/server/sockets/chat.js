@@ -2,32 +2,44 @@ var moment = require('moment');
 var log = require('../logger');
 var User = require('../models/user');
 
-module.exports.listen = function(io) {
+module.exports.events = function(socket) {
 
   'use strict';
 
-  var chat = io.of('/chat');
-  chat.on('connection', function(socket) {
-    var timeFormat = 'HH:mm:ss';
-    var user;
+  socket.on('chat:connect', function() {
     User.findOne(
       {_id: socket.request.session.passport.user},
-      function(err, obj) {
-        if (obj) {
-          user = obj;
-          var hello = moment().format(timeFormat) + ' ' + user.email + ' joined';
-          socket.emit('hello', hello);
-          socket.broadcast.emit('hello', hello);
+      function(err, user) {
+        if (user) {
+          var hello = moment().format('HH:mm:ss') + ' ' + user.email + ' joined';
+          socket.emit('chat:hello', hello);
+          socket.broadcast.emit('chat:hello', hello);
         }
       });
-
-    socket.on('say', function(data) {
-      var msg = moment().
-        format(timeFormat) + ' ' + user.email + ' ' + data;
-      socket.emit('msg', msg);
-      socket.broadcast.emit('msg', msg);
-    });
   });
 
-  return io;
+  socket.on('chat:msg', function(data) {
+    User.findOne(
+      {_id: socket.request.session.passport.user},
+      function(err, user) {
+        if (user) {
+          var msg = moment().format('HH:mm:ss') + ' ' + user.email + ' ' + data;
+          socket.emit('chat:say', msg);
+          socket.broadcast.emit('chat:say', msg);
+        }
+      });
+  });
+
+  socket.on('chat:disconnect', function() {
+    User.findOne(
+      {_id: socket.request.session.passport.user},
+      function(err, user) {
+        if (user) {
+          var bye = moment().format('HH:mm:ss') + ' ' + user.email + ' left';
+          socket.emit('chat:bye', bye);
+          socket.broadcast.emit('chat:bye', bye);
+        }
+      });
+  });
+
 };
