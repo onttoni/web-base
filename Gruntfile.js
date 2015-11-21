@@ -109,7 +109,10 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      all: ['Gruntfile.js', 'src/public/app/**/*.js']
+      all: ['Gruntfile.js', 'src/public/app/**/*.js', 'src/server/**/*.js'],
+      options: {
+        jshintrc: true
+      }
     },
 
     mkdir: {
