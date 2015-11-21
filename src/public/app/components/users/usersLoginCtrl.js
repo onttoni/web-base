@@ -5,16 +5,12 @@ app.controller('usersLoginCtrl', function($log, $scope, $uibModalInstance, User)
   'use strict';
 
   $scope.users = {};
-  $scope.users.loggedIn = new User();
+  $scope.users.loggedIn = {};
 
   $scope.users.login = function() {
-    $scope.users.loggedIn.$login(
+    User.login($scope.users.loggedIn,
       function() {
-        $log.debug('User login success', $scope.users.loggedIn);
         $uibModalInstance.close('loginSuccess');
-      },
-      function() {
-        $log.debug('User login failed', $scope.users.loggedIn);
       });
   };
 

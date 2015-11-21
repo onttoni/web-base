@@ -19,8 +19,7 @@ app.controller('usersSignUpCtrl', function($log, $scope, $state, User) {
       $scope.users.added.displayFields().forEach(function(key) {
         data[key] = $scope.users.added[key];
       });
-      new User(data).$signUp(function(newUser) {
-        $log.debug('New user is', newUser);
+      User.signUp(data, function() {
         $state.go('app.home');
       });
     });
