@@ -13,6 +13,7 @@ var appDeps = ['angularModalService', 'ct.ui.router.extras', 'ngResource', 'ngSa
 var app = angular.module('app', appDeps);
 
 require('./config');
+require('./run');
 require('../js/jquery_parts');
 require('./shared');
 require('./components/about');
