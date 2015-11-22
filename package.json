@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "angular": "latest",
-    "angular-modal-service": "latest",
     "angular-resource": "latest",
     "angular-sanitize": "latest",
     "angular-ui-bootstrap": "latest",
