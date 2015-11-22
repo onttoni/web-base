@@ -1,7 +1,9 @@
 var app = require('angular').module('app');
 var _ = require('lodash');
 
-app.service('User', function($log, $resource) {
+app.service('User', function($log, $resource, $rootScope) {
+
+  var signedIn = false;
 
   var resource = $resource('/api/users/:id', {id: '@_id'},
   {
@@ -11,11 +13,15 @@ app.service('User', function($log, $resource) {
     login: {method: 'POST', params: {login: true}}
   });
 
+  this.isSignedIn = function() {
+    return signedIn === true;
+  };
+
   this.signUp = function(data, callback, errorCallback) {
     resource.signUp(
       data,
       function(user) {
-        $log.debug('sign up success', user);
+        setSignedIn(user);
         if (_.isFunction(callback)) {
           callback();
         }
@@ -49,8 +55,8 @@ app.service('User', function($log, $resource) {
 
   this.logout = function(callback, errorCallback) {
     resource.logout(
-      function(user) {
-        $log.debug('sign out success', user);
+      function() {
+        unsetSignedIn();
         if (_.isFunction(callback)) {
           callback();
         }
@@ -68,7 +74,7 @@ app.service('User', function($log, $resource) {
     resource.login(
       data,
       function(user) {
-        $log.debug('sign in success', user);
+        setSignedIn(user);
         if (_.isFunction(callback)) {
           callback();
         }
@@ -81,4 +87,17 @@ app.service('User', function($log, $resource) {
       }
     );
   };
+
+  function setSignedIn(user) {
+    $log.debug('sign in success', user);
+    signedIn = true;
+    $rootScope.$broadcast('user:signIn');
+  }
+
+  function unsetSignedIn() {
+    $log.debug('sign out success');
+    signedIn = false;
+    $rootScope.$broadcast('user:signOut');
+  }
+
 });
