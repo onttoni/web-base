@@ -7,7 +7,7 @@ app.controller('chatCtrl', function($log, $scope, $state, SocketService) {
   $scope.chat = {};
   $scope.chat.output = [];
 
-  SocketService.emit('chat:connect');
+  SocketService.emit('chat:join');
 
   SocketService.on('chat:hello', function(data) {
     $scope.$apply(function() {
@@ -33,7 +33,7 @@ app.controller('chatCtrl', function($log, $scope, $state, SocketService) {
   };
 
   $scope.$on('$destroy', function() {
-    SocketService.emit('chat:disconnect');
+    SocketService.emit('chat:leave');
   });
 
 });
