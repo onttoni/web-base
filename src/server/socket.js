@@ -11,19 +11,15 @@ module.exports = function(server, session) {
     session(socket.request, {}, next);
   });
 
-  io.use(function(socket, next) {
-    var userId;
-    try {
-      userId = socket.request.session.passport.user;
-    } catch (err) {}
-    if (userId) {
-      return next();
-    }
-    return next(new Error('Authentication error'));
-  });
-
   io.on('connection', function(socket) {
-    log.debug('Connecting socket.');
+    if (isAuthorized(socket)) {
+      log.debug('Connecting socket.');
+    } else {
+      log.debug('Rejecting connection.');
+      socket.emit('connection:unauthorized');
+      socket.disconnect();
+      return;
+    }
     var sckDir = path.join(__dirname, 'sockets');
     log.debug('Scanning', sckDir, 'for socket event handlers.');
     fs.readdirSync(sckDir).forEach(function(file) {
@@ -37,5 +33,15 @@ module.exports = function(server, session) {
       log.debug('Disconnecting socket.');
     });
   });
-  return io;
 };
+
+function isAuthorized(socket) {
+  var userId;
+  try {
+    userId = socket.request.session.passport.user;
+  } catch (err) {}
+  if (userId) {
+    return true;
+  }
+  return false;
+}
