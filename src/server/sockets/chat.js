@@ -6,7 +6,7 @@ module.exports.events = function(socket) {
 
   'use strict';
 
-  socket.on('chat:connect', function() {
+  socket.on('chat:join', function() {
     User.findOne(
       {_id: socket.request.session.passport.user},
       function(err, user) {
@@ -30,7 +30,7 @@ module.exports.events = function(socket) {
       });
   });
 
-  socket.on('chat:disconnect', function() {
+  socket.on('chat:leave', function() {
     User.findOne(
       {_id: socket.request.session.passport.user},
       function(err, user) {
