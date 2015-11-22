@@ -1,7 +1,6 @@
 $ = jQuery = require('jquery');
 require('bootstrap');
 require('angular');
-require('angular-modal-service');
 require('angular-resource');
 require('angular-ui-bootstrap');
 require('angular-ui-router');
@@ -9,7 +8,7 @@ require('angular-sanitize');
 require('mongoose');
 require('ui-router-extras');
 
-var appDeps = ['angularModalService', 'ct.ui.router.extras', 'ngResource', 'ngSanitize', 'ui.bootstrap', 'ui.router'];
+var appDeps = ['ct.ui.router.extras', 'ngResource', 'ngSanitize', 'ui.bootstrap', 'ui.router'];
 var app = angular.module('app', appDeps);
 
 require('./config');
