@@ -11,10 +11,10 @@ module.exports = function(grunt) {
     },
   });
 
-  // Task(s).
   grunt.registerTask('default', ['debug']);
-  grunt.registerTask('common', ['htmlangular', 'jshint', 'clean', 'mkdir', 'copy', 'cssmin']);
+  grunt.registerTask('libs', ['clean', 'mkdir', 'browserify:vendor', 'uglify:vendor']);
+  grunt.registerTask('common', ['htmlangular', 'jshint', 'copy', 'cssmin']);
   grunt.registerTask('debug', ['common', 'browserify:debug', 'htmlmin:debug']);
-  grunt.registerTask('dist', ['common', 'browserify:dist', 'ngAnnotate', 'uglify', 'htmlmin:dist']);
+  grunt.registerTask('dist', ['common', 'browserify:dist', 'ngAnnotate', 'uglify:dist', 'htmlmin:dist']);
 
 };

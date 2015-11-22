@@ -1,31 +1,54 @@
 module.exports = {
-  dist: {
-    options: {
-      browserifyOptions: {
-        paths: ['./src/server']
-      }
+  options: {
+    browserifyOptions: {
+      paths: ['./src/server']
     },
-    files: [{
-      expand: true,
-      cwd: 'src/public/app',
-      src: ['app.js'],
-      dest: 'build/public/app',
-      flatten: true
-    }]
+    debug: false,
+    external: [
+      'angular',
+      'angular-resource',
+      'angular-sanitize',
+      'angular-ui-bootstrap',
+      'angular-ui-router',
+      'bootstrap',
+      'jquery',
+      'lodash',
+      'mongoose',
+      'socket.io-client',
+      'ui-router-extras'
+    ]
   },
   debug: {
     options: {
-      browserifyOptions: {
-        debug: true,
-        paths: ['./src/server']
-      }
+      debug: true,
     },
-    files: [{
-      expand: true,
-      cwd: 'src/public/app',
-      src: ['app.js'],
-      dest: 'build/public/app',
-      flatten: true
-    }]
+    files: {
+      'build/public/app/app.js': ['src/public/app/app.js'],
+    }
+  },
+  dist: {
+    files: {
+      'build/public/app/app.js': ['src/public/app/app.js'],
+    }
+  },
+  vendor: {
+    options: {
+      alias: [
+        'angular:',
+        'angular-resource:',
+        'angular-sanitize:',
+        'angular-ui-bootstrap:',
+        'angular-ui-router:',
+        'bootstrap:',
+        'jquery:',
+        'lodash:',
+        'mongoose:',
+        'socket.io-client:',
+        'ui-router-extras:'
+      ],
+      external: null
+    },
+    src: ['.'],
+    dest: 'build/public/app/vendor.js',
   }
 };

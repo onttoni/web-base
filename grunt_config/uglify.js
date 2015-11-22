@@ -1,13 +1,15 @@
 module.exports = {
+  options: {
+    banner: '/*! <%= package.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+  },
+  vendor: {
+    files: {
+      'build/public/app/vendor.js': ['build/public/app/vendor.js']
+    }
+  },
   dist: {
-    options: {
-      banner: '/*! <%= package.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-    },
-    files: [{
-      expand: true,
-      cwd: 'build/public',
-      src: ['**/*.js'],
-      dest: 'build/public'
-    }]
+    files: {
+      'build/public/app/app.js': ['build/public/app/app.js']
+    }
   }
 };
