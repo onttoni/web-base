@@ -12,7 +12,6 @@ var appDeps = ['ct.ui.router.extras', 'ngResource', 'ngSanitize', 'ui.bootstrap'
 var app = angular.module('app', appDeps);
 
 require('./config');
-require('./run');
 require('../js/jquery_parts');
 require('./shared');
 require('./components/about');

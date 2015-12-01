@@ -1,3 +1,4 @@
-require('./filters/index');
-require('./interceptors/index');
+require('./directives');
+require('./filters');
+require('./interceptors');
 require('./services');
