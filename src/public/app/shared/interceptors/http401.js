@@ -10,7 +10,7 @@ app.factory('http401Interceptor', function($q, $injector) {
     },
     responseError: function(rejection) {
       if (rejection.status === 401) {
-        $injector.get('$state').go('app.users.login');
+        $injector.get('$state').go('app.user.login');
       }
       return $q.reject(rejection);
     }
