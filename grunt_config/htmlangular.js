@@ -4,7 +4,8 @@ module.exports = {
     reportCheckstylePath: null,
     reportpath: null,
     tmplext: 'html.tmpl',
-    w3clocal: 'http://w3c-validator.local/nu'
+    w3clocal: 'http://w3c-validator.local/nu',
+    customtags: ['navbar']
   },
   files: {
     src: ['src/public/app/**/*.html', 'src/public/app/**/*.html.tmpl']
