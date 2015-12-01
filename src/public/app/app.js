@@ -19,5 +19,5 @@ require('./components/about');
 require('./components/chat');
 require('./components/home');
 require('./components/friends');
-require('./components/users');
+require('./components/user');
 require('./states');

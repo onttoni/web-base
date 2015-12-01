@@ -1,7 +1,7 @@
 var app = require('angular').module('app');
 var _ = require('lodash');
 
-app.service('User', function($log, $resource, $rootScope) {
+app.service('UserService', function($log, $resource, $rootScope) {
 
   var signedIn = false;
 

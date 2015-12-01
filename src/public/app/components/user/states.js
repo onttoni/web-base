@@ -7,17 +7,17 @@ app.config(function($stateProvider) {
   var previousState;
 
   $stateProvider.
-    state('app.users', {
+    state('app.user', {
       abstract: true,
       template: '<ui-view></ui-view>'
     }).
-    state('app.users.login', {
+    state('app.user.login', {
       url: '/login',
       onEnter: function($stateParams, $state, $previousState, $uibModal) {
         previousState = $previousState.memo('previousState');
         $uibModal.open({
-          templateUrl: 'app/components/users/login.html.tmpl',
-          controller: 'usersLoginCtrl'
+          templateUrl: 'app/components/user/login.html.tmpl',
+          controller: 'userLoginCtrl'
         }).result.then(function(loginStatus) {
           switch (loginStatus) {
             case 'loginSuccess':
@@ -27,20 +27,20 @@ app.config(function($stateProvider) {
               $state.go('app.home');
               break;
             case 'signUp':
-              $state.go('app.users.signup');
+              $state.go('app.user.signup');
               break;
           }
         });
       }
     }).
-    state('app.users.logout', {
+    state('app.user.logout', {
       url: '/logout',
-      templateUrl: 'app/components/users/logout.html.tmpl',
-      controller: 'usersLogoutCtrl'
+      templateUrl: 'app/components/user/logout.html.tmpl',
+      controller: 'userLogoutCtrl'
     }).
-    state('app.users.signup', {
+    state('app.user.signup', {
       url: '/signup',
-      templateUrl: 'app/components/users/signup.html.tmpl',
-      controller: 'usersSignUpCtrl'
+      templateUrl: 'app/components/user/signup.html.tmpl',
+      controller: 'userSignUpCtrl'
     });
 });
