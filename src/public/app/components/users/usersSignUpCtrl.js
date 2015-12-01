@@ -15,6 +15,10 @@ app.controller('usersSignUpCtrl', function($log, $scope, $state, User) {
         $log.debug('Validation error when adding user', err.errors);
         return;
       }
+      if ($scope.users.added.password != $scope.passwordVerify) {
+        $log.debug('Passwords did not match');
+        return;
+      }
       var data = {};
       $scope.users.added.displayFields().forEach(function(key) {
         data[key] = $scope.users.added[key];
