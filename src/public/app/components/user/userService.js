@@ -1,7 +1,7 @@
 var app = require('angular').module('app');
 var _ = require('lodash');
 
-app.service('UserService', function($log, $resource, $rootScope) {
+app.service('UserService', function($log, $resource, $rootScope, SocketService) {
 
   var signedIn = false;
 
@@ -12,6 +12,8 @@ app.service('UserService', function($log, $resource, $rootScope) {
     logout: {method: 'GET', params: {logout: true}},
     login: {method: 'POST', params: {login: true}}
   });
+
+  SocketService.connect();
 
   this.isSignedIn = function() {
     return signedIn === true;
@@ -99,5 +101,15 @@ app.service('UserService', function($log, $resource, $rootScope) {
     signedIn = false;
     $rootScope.$broadcast('user:signOut');
   }
+
+  $rootScope.$on('socket:connected', function() {
+    $log.debug('UserService <- socket:connected');
+    signedIn = true;
+  });
+
+  $rootScope.$on('socket:disconnected', function() {
+    $log.debug('UserService <- socket:disconnected');
+    signedIn = false;
+  });
 
 });
