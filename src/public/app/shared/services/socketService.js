@@ -57,6 +57,7 @@ app.service('SocketService', function($log, $rootScope) {
       socket = io.connect(window.location.origin, connectionOptions);
       socket.on('connection:open', function() {
         $log.debug('SocketService connected');
+        $rootScope.$broadcast('socket:connected');
       });
       socket.on('connection:unauthorized', function() {
         $log.debug('SocketService connection unauthorized');
@@ -68,6 +69,7 @@ app.service('SocketService', function($log, $rootScope) {
   function disconnect() {
     if (socket) {
       $log.debug('SocketService disconnecting');
+      $rootScope.$broadcast('socket:disconnected');
       socket.disconnect();
       socket = null;
     }
