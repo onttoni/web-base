@@ -1,8 +1,9 @@
 var app = require('angular').module('app');
 var _ = require('lodash');
 
-app.service('UserService', function($log, $resource, $rootScope, SocketService) {
+app.service('UserService', function($log, $resource, $rootScope) {
 
+  var user = null;
   var signedIn = false;
 
   var resource = $resource('/api/users/:id', {id: '@_id'},
@@ -10,10 +11,9 @@ app.service('UserService', function($log, $resource, $rootScope, SocketService) 
     signUp: {method: 'POST', params: {signup: true}},
     update: {method: 'PUT'},
     logout: {method: 'GET', params: {logout: true}},
-    login: {method: 'POST', params: {login: true}}
+    login: {method: 'POST', params: {login: true}},
+    getUser: {method: 'GET'}
   });
-
-  SocketService.connect();
 
   this.isSignedIn = function() {
     return signedIn === true;
@@ -75,8 +75,8 @@ app.service('UserService', function($log, $resource, $rootScope, SocketService) 
   this.login = function(data, callback, errorCallback) {
     resource.login(
       data,
-      function(user) {
-        setSignedIn(user);
+      function(loginResp) {
+        setSignedIn(loginResp.user);
         if (_.isFunction(callback)) {
           callback();
         }
@@ -90,26 +90,57 @@ app.service('UserService', function($log, $resource, $rootScope, SocketService) 
     );
   };
 
-  function setSignedIn(user) {
-    $log.debug('sign in success', user);
+  this.whoAmI = getUser;
+
+  function getUser(callback, errorCallback) {
+    if (user !== null) {
+      if (_.isFunction(callback)) {
+        callback(user);
+      }
+      return;
+    }
+    resource.getUser(
+      function(userObj) {
+        $log.debug('user query returned', userObj);
+        user = userObj;
+        if (_.isFunction(callback)) {
+          callback(userObj);
+        }
+      },
+      function(err) {
+        $log.debug('user query failed', err);
+        user = null;
+        if (_.isFunction(errorCallback)) {
+          errorCallback();
+        }
+      }
+    );
+  }
+
+  function setSignedIn(userObj) {
+    $log.debug('sign in success', userObj);
     signedIn = true;
+    user = userObj;
     $rootScope.$broadcast('user:signIn');
   }
 
   function unsetSignedIn() {
     $log.debug('sign out success');
     signedIn = false;
+    user = null;
     $rootScope.$broadcast('user:signOut');
   }
 
   $rootScope.$on('socket:connected', function() {
     $log.debug('UserService <- socket:connected');
     signedIn = true;
+    getUser();
   });
 
   $rootScope.$on('socket:disconnected', function() {
     $log.debug('UserService <- socket:disconnected');
     signedIn = false;
+    user = null;
   });
 
 });
