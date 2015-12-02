@@ -1,29 +1,37 @@
 var app = require('angular').module('app');
+var CBuffer = require('CBuffer');
 
 app.controller('chatCtrl', function($log, $scope, $state, SocketService) {
 
   'use strict';
 
+  var outputBufferLen = 20;
+  var outputBuffer = null;
+
   $scope.chat = {};
-  $scope.chat.output = [];
 
   SocketService.emit('chat:join');
 
+  $scope.chat.getMessages = function() {
+    if (outputBuffer) {
+      return outputBuffer.toArray();
+    }
+  };
+
   SocketService.on('chat:hello', function(data) {
+    outputBuffer = new CBuffer(outputBufferLen);
     $scope.$apply(function() {
-      $scope.chat.output.push(data);
+      outputBuffer.push(data);
     });
   });
 
-  SocketService.on('chat:bye', function(data) {
-    $scope.$apply(function() {
-      $scope.chat.output.push(data);
-    });
+  SocketService.on('chat:bye', function() {
+    outputBuffer = null;
   });
 
   SocketService.on('chat:say', function(data) {
     $scope.$apply(function() {
-      $scope.chat.output.push(data);
+      outputBuffer.push(data);
     });
   });
 

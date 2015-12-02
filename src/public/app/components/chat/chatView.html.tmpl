@@ -2,7 +2,7 @@
 <div>
   <form name="formChat" class="form-chat" novalidate>
     <div class="form-group">
-      <div ng-repeat="msg in chat.output track by $index">{{msg}}</div>
+      <div ng-repeat="msg in chat.getMessages() track by $index">{{msg}}</div>
     </div>
   </form>
   <form class="form-inline">
