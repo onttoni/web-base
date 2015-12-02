@@ -10,17 +10,13 @@ module.exports.events = function(socket) {
     User.findOne({_id: userId}, callback);
   }
 
-  function socketEmitBroadcast(event, data) {
-    socket.emit(event, data);
-    socket.broadcast.emit(event, data);
-  }
-
   socket.on('chat:join', function() {
     findUser(socket.request.session.passport.user,
       function(err, user) {
         if (user) {
           var hello = moment().format('HH:mm:ss') + ' ' + user.email + ' joined';
-          socketEmitBroadcast('chat:hello', hello);
+          socket.emit('chat:hello', hello);
+          socket.broadcast.emit('chat:say', hello);
         }
       });
   });
@@ -30,7 +26,8 @@ module.exports.events = function(socket) {
       function(err, user) {
         if (user) {
           var msg = moment().format('HH:mm:ss') + ' ' + user.email + ' ' + data;
-          socketEmitBroadcast('chat:say', msg);
+          socket.emit('chat:say', msg);
+          socket.broadcast.emit('chat:say', msg);
         }
       });
   });
@@ -40,7 +37,8 @@ module.exports.events = function(socket) {
       function(err, user) {
         if (user) {
           var bye = moment().format('HH:mm:ss') + ' ' + user.email + ' left';
-          socketEmitBroadcast('chat:bye', bye);
+          socket.emit('chat:bye', bye);
+          socket.broadcast.emit('chat:say', bye);
         }
       });
   });
