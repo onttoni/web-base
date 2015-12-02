@@ -14,7 +14,7 @@ const httpPort = require('./config').express.httpPort;
 const publicDir = path.join(__dirname, '../../build/public');
 
 var session = expressSession({
-  secret: 'foobar',
+  secret: require('./config').expressSession.secret,
   saveUninitialized: false,
   resave: false,
   store: new MongoStore({
