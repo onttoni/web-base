@@ -1,0 +1,13 @@
+<h2>Profile</h2>
+<div>
+  <form name="formUserProfile" class="form-user-profile" ng-submit="user.update()" novalidate>
+    <div class="form-group" ng-repeat="field in user.details.displayFields()" ng-if="field!='password'">
+      <label class="text-capitalize">{{field}}</label>
+      <input type="text" class="form-control" ng-model="user.details[field]" required/>
+    </div>
+    <div>
+      <button class="btn btn-default" type="submit" ng-disabled="formUserProfile.$invalid"><i class="fa fa-floppy-o"></i>Save</button>
+      <button ui-sref="app.home" class="btn btn-default"><i class="fa fa-times"></i>Cancel</button>
+    </div>
+  </form>
+</div>

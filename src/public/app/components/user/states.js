@@ -45,5 +45,10 @@ app.config(function($stateProvider) {
       url: '/signup',
       templateUrl: 'app/components/user/signup.html.tmpl',
       controller: 'userSignUpCtrl'
+    }).
+    state('app.user.profile', {
+      url: '/profile',
+      templateUrl: 'app/components/user/profile.html.tmpl',
+      controller: 'userProfileCtrl'
     });
 });
