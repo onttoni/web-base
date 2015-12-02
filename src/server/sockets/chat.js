@@ -10,13 +10,21 @@ module.exports.events = function(socket) {
     User.findOne({_id: userId}, callback);
   }
 
+  function getOutput(user, msg) {
+    return {
+      time: moment(),
+      userEmail: user.email,
+      msg: msg
+    };
+  }
+
   socket.on('chat:join', function() {
     findUser(socket.request.session.passport.user,
       function(err, user) {
         if (user) {
-          var hello = moment().format('HH:mm:ss') + ' ' + user.email + ' joined';
-          socket.emit('chat:hello', hello);
-          socket.broadcast.emit('chat:say', hello);
+          var output = getOutput(user, 'joined');
+          socket.emit('chat:hello', output);
+          socket.broadcast.emit('chat:say', output);
         }
       });
   });
@@ -25,9 +33,9 @@ module.exports.events = function(socket) {
     findUser(socket.request.session.passport.user,
       function(err, user) {
         if (user) {
-          var msg = moment().format('HH:mm:ss') + ' ' + user.email + ' ' + data;
-          socket.emit('chat:say', msg);
-          socket.broadcast.emit('chat:say', msg);
+          var output = getOutput(user, data);
+          socket.emit('chat:say', output);
+          socket.broadcast.emit('chat:say', output);
         }
       });
   });
@@ -36,9 +44,9 @@ module.exports.events = function(socket) {
     findUser(socket.request.session.passport.user,
       function(err, user) {
         if (user) {
-          var bye = moment().format('HH:mm:ss') + ' ' + user.email + ' left';
-          socket.emit('chat:bye', bye);
-          socket.broadcast.emit('chat:say', bye);
+          var output = getOutput(user, 'left');
+          socket.emit('chat:bye', output);
+          socket.broadcast.emit('chat:say', output);
         }
       });
   });
