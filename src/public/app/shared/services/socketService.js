@@ -1,4 +1,5 @@
 var app = require('angular').module('app');
+var _ = require('lodash');
 
 app.service('SocketService', function($log, $rootScope) {
 
@@ -26,7 +27,7 @@ app.service('SocketService', function($log, $rootScope) {
   };
 
   this.isConnected = function() {
-    return socket !== null;
+    return _.get(socket, 'connected', false);
   };
 
   this.emit = function(eventName, data, callback) {
