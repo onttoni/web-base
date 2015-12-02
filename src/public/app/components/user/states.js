@@ -4,8 +4,6 @@ app.config(function($stateProvider) {
 
   'use strict';
 
-  var previousState;
-
   $stateProvider.
     state('app.user', {
       abstract: true,
@@ -14,14 +12,19 @@ app.config(function($stateProvider) {
     state('app.user.login', {
       url: '/login',
       onEnter: function($stateParams, $state, $previousState, $uibModal) {
-        previousState = $previousState.memo('previousState');
+        $previousState.memo('previousState');
         $uibModal.open({
           templateUrl: 'app/components/user/login.html.tmpl',
           controller: 'userLoginCtrl'
         }).result.then(function(loginStatus) {
           switch (loginStatus) {
             case 'loginSuccess':
-              $previousState.go('previousState');
+              var previousState = $previousState.get('previousState');
+              if (previousState.state.name == 'app.user.logout') {
+                $state.go('app.home');
+              } else {
+                $previousState.go('previousState');
+              }
               break;
             case 'loginCancelled':
               $state.go('app.home');
