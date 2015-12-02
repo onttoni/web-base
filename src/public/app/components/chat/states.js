@@ -6,12 +6,7 @@ app.config(function($stateProvider) {
 
   $stateProvider.
   state('app.chat', {
-    abstract: true,
     url: '/chat',
-    template: '<ui-view></ui-view>'
-  }).
-  state('app.chat.list', {
-    url: '/list',
     templateUrl: 'app/components/chat/chatView.html.tmpl',
     controller: 'chatCtrl'
   });

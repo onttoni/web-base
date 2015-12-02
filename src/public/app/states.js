@@ -11,6 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '',
       abstract: true,
       sticky: true,
+      template: '<ui-view></ui-view>',
       views: {
         'app': {
           templateUrl: 'app/shared/views/body.html.tmpl'
