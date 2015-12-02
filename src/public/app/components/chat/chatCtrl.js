@@ -5,7 +5,7 @@ app.controller('chatCtrl', function($log, $scope, $state, SocketService) {
 
   'use strict';
 
-  var outputBufferLen = 20;
+  var outputBufferLen = 50;
   var outputBuffer = null;
 
   $scope.chat = {};
