@@ -6,17 +6,33 @@ app.directive('navbar', function() {
   directive.templateUrl = 'app/shared/directives/navbar.html.tmpl';
 
   directive.scope = {};
-  directive.controller = function($log, $rootScope, $scope, SocketService) {
-    $scope.isSignedIn = SocketService.isConnected();
+  directive.controller = function($log, $rootScope, $scope, UserService) {
+
+    whoAmI();
+
+    function whoAmI() {
+      UserService.whoAmI(
+        function(userObj) {
+          $scope.firstName = userObj.firstName;
+          $scope.isSignedIn = true;
+        },
+        iAmNobody
+      );
+    }
+
+    function iAmNobody() {
+      $scope.firstName = null;
+      $scope.isSignedIn = false;
+    }
 
     $rootScope.$on('user:signIn', function() {
       $log.debug('navbar <- user:signIn');
-      $scope.isSignedIn = true;
+      whoAmI();
     });
 
     $rootScope.$on('user:signOut', function() {
       $log.debug('navbar <- user:signOut');
-      $scope.isSignedIn = false;
+      iAmNobody();
     });
   };
 
