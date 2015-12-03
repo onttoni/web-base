@@ -9,6 +9,7 @@ a > i.fa {
 
 body {
   color:red; margin:0px;
+  padding-top: 50px;
 }
 
 button > i.fa {
