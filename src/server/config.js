@@ -1,8 +1,12 @@
+var path = require('path');
+
 cfg = {};
 module.exports = cfg;
 
 cfg.express = {};
 cfg.express.httpPort = 8080;
+cfg.express.key = path.join(__dirname, 'ssl/key.pem');
+cfg.express.cert = path.join(__dirname, 'ssl/cert.pem');
 
 cfg.expressSession = {};
 cfg.expressSession.secret = 'foobar';

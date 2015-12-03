@@ -2,7 +2,6 @@ var log = require('./logger');
 var express = require('express');
 var fs = require('fs');
 var app = express();
-var server = require('http').Server(app);
 var bodyParser = require('body-parser');
 var path = require('path');
 var expressSession = require('express-session');
@@ -21,6 +20,20 @@ var session = expressSession({
     mongooseConnection: mongooseConnection,
     touchAfter: 24 * 3600})
 });
+
+try {
+  var server = require('https').Server(
+    {
+      key: fs.readFileSync(require('./config').express.key),
+      cert: fs.readFileSync(require('./config').express.cert)
+    },
+    app
+  );
+  log.info('Server enabled SSL');
+} catch (err) {
+  var server = require('http').Server(app);
+  log.info('Server disabled SSL', err);
+}
 
 var io = require('./socket')(server, session);
 require('./passport')(passport);
