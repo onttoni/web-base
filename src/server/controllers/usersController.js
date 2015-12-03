@@ -71,7 +71,7 @@ function login(req, res, next, passport) {
         return next(err);
       }
       var token = jwt.sign(user, require('../config').jsonwebtoken.secret, {
-        expiresInMinutes: require('../config').jsonwebtoken.expires
+        expiresInMinutes: require('../config').jsonwebtoken.expiresInMinutes
       });
       return res.json({user: user, token: token});
     });
@@ -88,7 +88,7 @@ function signUp(req, res, next, passport) {
         return next(err);
       }
       var token = jwt.sign(user, require('../config').jsonwebtoken.secret, {
-        expiresInMinutes: require('../config').jsonwebtoken.expires
+        expiresInMinutes: require('../config').jsonwebtoken.expiresInMinutes
       });
       return res.json({user: user, token: token});
     });

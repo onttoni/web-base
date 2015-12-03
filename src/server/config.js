@@ -13,7 +13,7 @@ cfg.expressSession.secret = 'foobar';
 
 cfg.jsonwebtoken = {};
 cfg.jsonwebtoken.secret = 'foobar';
-cfg.jsonwebtoken.expires = 60 * 24;
+cfg.jsonwebtoken.expiresInMinutes = 60 * 24;
 
 cfg.mongo = {};
 cfg.mongo.host = 'mongo01.local';
