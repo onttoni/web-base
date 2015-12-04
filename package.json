@@ -27,6 +27,7 @@
     "connect-mongo": "latest",
     "express": "latest",
     "express-bunyan-logger": "latest",
+    "express-jwt": "latest",
     "express-session": "latest",
     "font-awesome": "latest",
     "jquery": "latest",
