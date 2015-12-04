@@ -1,6 +1,6 @@
 var app = require('angular').module('app');
 
-app.factory('jwtInterceptor', function($rootScope, $q, $window) {
+app.factory('jwtInterceptor', function($q, $window) {
 
   'use strict';
 
