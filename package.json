@@ -40,6 +40,7 @@
     "passport-local": "latest",
     "socket.io": "latest",
     "socket.io-client": "latest",
+    "socketio-jwt": "latest",
     "ui-router-extras": "latest"
   },
   "devDependencies": {
