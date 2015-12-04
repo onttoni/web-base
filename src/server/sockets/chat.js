@@ -19,36 +19,21 @@ module.exports.events = function(socket) {
   }
 
   socket.on('chat:join', function() {
-    findUser(socket.request.session.passport.user,
-      function(err, user) {
-        if (user) {
-          var output = getOutput(user, 'joined');
-          socket.emit('chat:hello', output);
-          socket.broadcast.emit('chat:say', output);
-        }
-      });
+    var output = getOutput(socket.decoded_token, 'joined');
+    socket.emit('chat:hello', output);
+    socket.broadcast.emit('chat:say', output);
   });
 
   socket.on('chat:msg', function(data) {
-    findUser(socket.request.session.passport.user,
-      function(err, user) {
-        if (user) {
-          var output = getOutput(user, data);
-          socket.emit('chat:say', output);
-          socket.broadcast.emit('chat:say', output);
-        }
-      });
+    var output = getOutput(socket.decoded_token, data);
+    socket.emit('chat:say', output);
+    socket.broadcast.emit('chat:say', output);
   });
 
   socket.on('chat:leave', function() {
-    findUser(socket.request.session.passport.user,
-      function(err, user) {
-        if (user) {
-          var output = getOutput(user, 'left');
-          socket.emit('chat:bye', output);
-          socket.broadcast.emit('chat:say', output);
-        }
-      });
+    var output = getOutput(socket.decoded_token, 'left');
+    socket.emit('chat:bye', output);
+    socket.broadcast.emit('chat:say', output);
   });
 
 };
