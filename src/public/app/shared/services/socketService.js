@@ -1,7 +1,7 @@
 var app = require('angular').module('app');
 var _ = require('lodash');
 
-app.service('SocketService', function($log, $rootScope) {
+app.service('SocketService', function($log, $rootScope, $window) {
 
   'use strict';
 
@@ -56,13 +56,11 @@ app.service('SocketService', function($log, $rootScope) {
     if (!socket) {
       $log.debug('SocketService connecting');
       socket = io.connect(window.location.origin, connectionOptions);
-      socket.on('connection:open', function() {
-        $log.debug('SocketService connected');
-        $rootScope.$broadcast('socket:connected');
-      });
-      socket.on('connection:unauthorized', function() {
-        $log.debug('SocketService connection unauthorized');
-        disconnect();
+      socket.on('connect', function() {
+        socket.on('authenticated', function() {
+          $log.debug('SocketService connected');
+          $rootScope.$broadcast('socket:connected');
+        }).emit('authenticate', {token: $window.localStorage.token});
       });
     }
   }
