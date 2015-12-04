@@ -1,12 +1,9 @@
+var expressJwt = require('express-jwt');
+
 module.exports.controller = function(app, apiPrefix) {
 
-  app.all(apiPrefix + 'friends/', requireAuthentication);
+  app.all(apiPrefix + 'friends/', expressJwt({
+    secret: require('../config').jsonwebtoken.secret
+  }));
 
 };
-
-function requireAuthentication(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  return res.status(401).send({msg: 'unauthorized'});
-}
