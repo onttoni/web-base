@@ -32,7 +32,7 @@ try {
   log.info('Server enabled SSL');
 } catch (err) {
   var server = require('http').Server(app);
-  log.info('Server disabled SSL', err);
+  log.warn('Server disabled SSL', err);
 }
 
 var io = require('./socket')(server, session);
