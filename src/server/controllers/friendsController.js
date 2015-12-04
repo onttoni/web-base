@@ -5,9 +5,8 @@ module.exports.controller = function(app, apiPrefix) {
   var path = apiPrefix + 'friends/';
 
   app.get(path, function(req, res) {
-    var user = req.session.passport.user;
     Friend.find({
-      user: user
+      user: req.user
     },
     req.query.fields,
     function(err, obj) {
@@ -19,9 +18,8 @@ module.exports.controller = function(app, apiPrefix) {
   });
 
   app.get(path + ':id', function(req, res) {
-    var user = req.session.passport.user;
     Friend.findOne({
-      user: user,
+      user: req.user,
       _id: req.params.id
     },
     req.query.fields,
@@ -39,7 +37,7 @@ module.exports.controller = function(app, apiPrefix) {
   // Add friend
   app.post(path, function(req, res) {
     var friend = new Friend(req.body.add);
-    friend.user = req.session.passport.user;
+    friend.user = req.user;
     friend.save(function(err) {
       if (err) {
         return res.status(400).send({msg: 'bad request'});
@@ -50,9 +48,8 @@ module.exports.controller = function(app, apiPrefix) {
 
   // Update friend
   app.put(path, function(req, res) {
-    var user = req.session.passport.user;
     Friend.findOneAndUpdate({
-      user: user,
+      user: req.user,
       _id: req.body.id
     },
     req.body.update,
@@ -69,9 +66,8 @@ module.exports.controller = function(app, apiPrefix) {
   });
 
   app.delete(path + ':id', function(req, res) {
-    var user = req.session.passport.user;
     Friend.remove({
-      user: user,
+      user: req.user,
       _id: req.params.id
     },
     function(err, obj) {
