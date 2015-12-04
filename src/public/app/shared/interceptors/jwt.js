@@ -5,13 +5,13 @@ app.factory('jwtInterceptor', function($q, $window) {
   'use strict';
 
   return {
-    request: function(config) {
-      config.headers = config.headers || {};
+    request: function(request) {
+      request.headers = request.headers || {};
       if ($window.localStorage.token) {
         // RFC 6750 p. 5
-        config.headers.Authorization = 'Bearer ' + $window.localStorage.token;
+        request.headers.Authorization = 'Bearer ' + $window.localStorage.token;
       }
-      return config;
+      return request;
     }
   };
 });
