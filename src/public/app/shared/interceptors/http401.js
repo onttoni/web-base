@@ -8,11 +8,15 @@ app.factory('http401Interceptor', function($q, $injector) {
     response: function(response) {
       return response || $q.when(response);
     },
-    responseError: function(rejection) {
-      if (rejection.status === 401) {
+    responseError: function(response) {
+      if (response.status === 401) {
         $injector.get('$state').go('app.user.login');
       }
-      return $q.reject(rejection);
+      return $q.reject(response);
     }
   };
+});
+
+app.config(function($httpProvider) {
+  $httpProvider.interceptors.push('http401Interceptor');
 });
