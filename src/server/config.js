@@ -5,15 +5,16 @@ module.exports = cfg;
 
 cfg.express = {};
 cfg.express.httpPort = 8080;
-cfg.express.key = path.join(__dirname, 'ssl/key.pem');
-cfg.express.cert = path.join(__dirname, 'ssl/cert.pem');
+cfg.express.key = path.join(__dirname, 'keys/ssl_key.pem');
+cfg.express.cert = path.join(__dirname, 'keys/ssl_cert.pem');
 
 cfg.expressSession = {};
 cfg.expressSession.secret = 'foobar';
 
 cfg.jsonwebtoken = {};
-cfg.jsonwebtoken.secret = 'foobar';
-cfg.jsonwebtoken.expiresInMinutes = 60 * 24;
+cfg.jsonwebtoken.private = path.join(__dirname, 'keys/jwt_private_key.pem');
+cfg.jsonwebtoken.public = path.join(__dirname, 'keys/jwt_public_key.pem');
+cfg.jsonwebtoken.expiresIn = '24h';
 
 cfg.mongo = {};
 cfg.mongo.host = 'mongo01.local';

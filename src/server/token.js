@@ -1,14 +1,28 @@
+var fs = require('fs');
 var _ = require('lodash');
-var log = require('./logger');
 var jwt = require('jsonwebtoken');
-const jwtSecret = require('./config').jsonwebtoken.secret;
-const jwtExpiresInMinutes = require('./config').jsonwebtoken.expiresInMinutes;
+var log = require('./logger');
+var jwtPrivate = 'foobar';
+var jwtPublic = 'foobar';
+var keys = false;
+const jwtExpiresIn = require('./config').jsonwebtoken.expiresIn;
+
+readKeys();
 
 module.exports = {
 
+  getPublicKey: function() {
+    return jwtPublic;
+  },
   getUserId: function(req, callback) {
     var token = getToken(req);
-    jwt.verify(token, jwtSecret, function(err, decoded) {
+    var verifyAttrs;
+    if (keys) {
+      verifyAttrs = [token, jwtPublic, {algorithms: ['RS256']}];
+    } else {
+      verifyAttrs = [token, jwtPublic];
+    }
+    function verifyCallback(err, decoded) {
       var id = _.get(decoded, '_id', null);
       if (id && !err) {
         log.debug('token was used for auth');
@@ -17,12 +31,18 @@ module.exports = {
         log.debug('session was used for auth');
         callback(_.get(req, 'session.passport.user', null));
       }
-    });
+    }
+    verifyAttrs.push(verifyCallback);
+    jwt.verify.apply(this, verifyAttrs);
   },
   signUserToken: function(user) {
-    return jwt.sign(user, jwtSecret, {
-      expiresInMinutes: jwtExpiresInMinutes
-    });
+    var signAttrs;
+    if (keys) {
+      signAttrs = {algorithm: 'RS256', expiresIn: jwtExpiresIn};
+    } else {
+      signAttrs = {expiresIn: jwtExpiresIn};
+    }
+    return jwt.sign(user, jwtPrivate, signAttrs);
   }
 };
 
@@ -33,4 +53,15 @@ function getToken(req) {
     return req.query.token;
   }
   return null;
+}
+
+function readKeys() {
+  try {
+    jwtPrivate = fs.readFileSync(require('./config').jsonwebtoken.private);
+    jwtPublic = fs.readFileSync(require('./config').jsonwebtoken.public);
+    log.info('Server is using keys for tokens');
+    keys = true;
+  } catch (err) {
+    log.warn('Server is using nonsecrets for tokens', err);
+  }
 }
