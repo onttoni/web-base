@@ -22,9 +22,7 @@ app.controller('userProfileCtrl', function($log, $scope, $state, UserService) {
       $scope.user.details.displayFields().forEach(function(key) {
         data[key] = $scope.user.details[key];
       });
-      UserService.update({update: data}, function(user) {
-        $log.debug('User updated', user);
-      });
+      UserService.update({update: data});
       $state.go('app.home');
     });
   };
