@@ -1,7 +1,7 @@
 var app = require('angular').module('app');
 var _ = require('lodash');
 
-app.service('UserService', function($log, $resource, $rootScope) {
+app.service('UserService', function($log, $resource, $rootScope, $window) {
 
   var user = null;
   var signedIn = false;
@@ -22,8 +22,8 @@ app.service('UserService', function($log, $resource, $rootScope) {
   this.signUp = function(data, callback, errorCallback) {
     resource.signUp(
       data,
-      function(user) {
-        setSignedIn(user);
+      function(signUpResp) {
+        setSignedIn(signUpResp);
         if (_.isFunction(callback)) {
           callback();
         }
@@ -56,9 +56,9 @@ app.service('UserService', function($log, $resource, $rootScope) {
   };
 
   this.logout = function(callback, errorCallback) {
+    unsetSignedIn();
     resource.logout(
       function() {
-        unsetSignedIn();
         if (_.isFunction(callback)) {
           callback();
         }
@@ -76,13 +76,14 @@ app.service('UserService', function($log, $resource, $rootScope) {
     resource.login(
       data,
       function(loginResp) {
-        setSignedIn(loginResp.user);
+        setSignedIn(loginResp);
         if (_.isFunction(callback)) {
           callback();
         }
       },
       function(err) {
         $log.debug('sign in failed', err);
+        unsetSignedIn();
         if (_.isFunction(errorCallback)) {
           errorCallback();
         }
@@ -101,15 +102,14 @@ app.service('UserService', function($log, $resource, $rootScope) {
     }
     resource.getUser(
       function(userObj) {
-        $log.debug('user query returned', userObj);
-        user = userObj;
+        setSignedIn({user: userObj});
         if (_.isFunction(callback)) {
           callback(userObj);
         }
       },
       function(err) {
         $log.debug('user query failed', err);
-        user = null;
+        unsetSignedIn();
         if (_.isFunction(errorCallback)) {
           errorCallback();
         }
@@ -117,30 +117,22 @@ app.service('UserService', function($log, $resource, $rootScope) {
     );
   }
 
-  function setSignedIn(userObj) {
-    $log.debug('sign in success', userObj);
+  function setSignedIn(signInData) {
+    $log.debug('sign in for user', signInData.user);
     signedIn = true;
-    user = userObj;
+    user = signInData.user;
+    if (signInData.token) {
+      $log.debug('user got token', signInData.token);
+      $window.localStorage.token = signInData.token;
+    }
     $rootScope.$broadcast('user:signIn');
   }
 
   function unsetSignedIn() {
-    $log.debug('sign out success');
+    $log.debug('user sign out');
     signedIn = false;
     user = null;
+    delete $window.localStorage.token;
     $rootScope.$broadcast('user:signOut');
   }
-
-  $rootScope.$on('socket:connected', function() {
-    $log.debug('UserService <- socket:connected');
-    signedIn = true;
-    getUser();
-  });
-
-  $rootScope.$on('socket:disconnected', function() {
-    $log.debug('UserService <- socket:disconnected');
-    signedIn = false;
-    user = null;
-  });
-
 });
