@@ -42,6 +42,7 @@ app.service('UserService', function($log, $resource, $rootScope, $window) {
       data,
       function(user) {
         $log.debug('user update success', user);
+        setSignedIn({user: user});
         if (_.isFunction(callback)) {
           callback();
         }
