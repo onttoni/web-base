@@ -14,17 +14,17 @@ app.config(function($stateProvider) {
     }).
     state('app.friends.list', {
       url: '/list',
-      templateUrl: 'app/components/friends/friendsListView.html.tmpl',
+      templateUrl: 'app/components/friends/list.html.tmpl',
       controller: 'friendsCtrl'
     }).
     state('app.friends.details', {
       url: '/details/:friendId',
-      templateUrl: 'app/components/friends/friendsDetailView.html.tmpl',
+      templateUrl: 'app/components/friends/details.html.tmpl',
       controller: 'friendsCtrl'
     }).
     state('app.friends.add', {
       url: '/add',
-      templateUrl: 'app/components/friends/friendsAddView.html.tmpl',
+      templateUrl: 'app/components/friends/add.html.tmpl',
       controller: 'friendsAddCtrl'
     }).
     state('app.friends.delete', {
@@ -32,7 +32,7 @@ app.config(function($stateProvider) {
       onEnter: function($previousState, $uibModal) {
         previousState = $previousState.memo('previousState');
         $uibModal.open({
-          templateUrl: 'app/components/friends/friendsDelete.html.tmpl',
+          templateUrl: 'app/components/friends/delete.html.tmpl',
           controller: 'friendsDeleteCtrl'
         }).result.finally(function() {
           $previousState.go('previousState');
