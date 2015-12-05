@@ -15,7 +15,7 @@ app.directive('navbar', function() {
       function whoAmI() {
         UserService.whoAmI(
           function(userObj) {
-            $scope.firstName = userObj.firstName;
+            $scope.userName = userObj.name.formatted;
             $scope.isSignedIn = true;
           },
           iAmNobody

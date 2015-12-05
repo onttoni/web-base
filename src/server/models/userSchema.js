@@ -3,6 +3,10 @@ var PersonSchema = require('./personSchema');
 
 var UserSchema = new PersonSchema({
   password: {type: String, required: true}
+},
+{
+  toObject: {getters: true, virtuals: true},
+  toJSON: {getters: true, virtuals: true}
 });
 
 UserSchema.methods.generateHash = function(password) {

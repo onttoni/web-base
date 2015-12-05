@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li ng-if="!isSignedIn"><a ui-sref="app.user.login">Sign in</a></li>
         <li ng-if="!isSignedIn"><a ui-sref="app.user.signup">Sign up</a></li>
-        <li ng-if="isSignedIn"><a class="text-capitalize" ui-sref="app.user.profile">{{firstName}}</a></li>
+        <li ng-if="isSignedIn"><a class="text-capitalize" ui-sref="app.user.profile">{{userName}}</a></li>
         <li ng-if="isSignedIn"><a ui-sref="app.user.logout">Sign out</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
