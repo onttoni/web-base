@@ -1,1 +1,2 @@
+require('./dynamicModel');
 require('./navbar');
