@@ -14,7 +14,7 @@ UserSchema.methods.validPassword = function(password) {
 };
 
 UserSchema.methods.displayFields = function() {
-  return ['firstName', 'lastName', 'email', 'password'];
+  return ['name.given', 'name.family', 'email', 'password'];
 };
 
 module.exports = UserSchema;

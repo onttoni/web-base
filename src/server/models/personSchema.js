@@ -9,14 +9,22 @@ function PersonSchema() {
   mongoose.Schema.apply(this, arguments);
 
   this.add({
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
+    provider: {type: String},
+    name: {
+      family: {type: String, required: true},
+      given: {type: String, required: true},
+      middle: {type: String},
+    },
     email: {
       type: String,
       required: true,
       validate: [validateEmail, 'Please fill a valid email address.']
     },
     created: Date
+  });
+
+  this.virtual('name.formatted').get(function() {
+    return this.name.given + ' ' + this.name.family;
   });
 }
 
