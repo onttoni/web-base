@@ -5,7 +5,8 @@ module.exports = {
     reportpath: null,
     tmplext: 'html.tmpl',
     w3clocal: 'http://w3c-validator.local/nu',
-    customtags: ['navbar']
+    customtags: ['navbar'],
+    customattrs: ['dynamic-model']
   },
   files: {
     src: ['src/public/app/**/*.html', 'src/public/app/**/*.html.tmpl']
