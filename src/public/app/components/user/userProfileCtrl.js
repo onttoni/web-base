@@ -1,28 +1,23 @@
 var app = require('angular').module('app');
-var userSchema = require('models/userSchema');
+var getPersonDoc = require('../../shared/utils/personUtils').getPersonDoc;
+var extractDocData = require('../../shared/utils/personUtils').extractDocData;
 
 app.controller('userProfileCtrl', function($log, $scope, $state, UserService) {
 
   'use strict';
 
-  $scope.user = {};
-
   UserService.whoAmI(function(user) {
-    $scope.user.details = mongoose.Document(user, userSchema);
+    getPersonDoc($scope, user, 'userSchema');
   });
 
-  $scope.user.update = function() {
-    $log.debug('Updating details for user with id=' + $scope.user.details._id);
-    $scope.user.details.validate(function(err) {
+  $scope.update = function() {
+    $log.debug('Updating details for user with id=' + $scope.personDoc._id);
+    $scope.personDoc.validate(function(err) {
       if (err) {
         $log.debug('Validation error when updating user', err.errors);
         return;
       }
-      var data = {};
-      $scope.user.details.displayFields().forEach(function(key) {
-        data[key] = $scope.user.details[key];
-      });
-      UserService.update({update: data});
+      UserService.update({update: extractDocData($scope)});
       $state.go('app.home');
     });
   };

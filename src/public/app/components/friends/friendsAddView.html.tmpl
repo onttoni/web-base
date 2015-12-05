@@ -1,7 +1,7 @@
 <h2>Add friend</h2>
 <div>
-  <form name="formFriendAdd" class="form-friend-add" ng-submit="friends.save()" novalidate>
-    <div class="form-group" ng-repeat="(key, value) in friends.displayFields">
+  <form name="formFriendAdd" class="form-friend-add" ng-submit="save()" novalidate>
+    <div class="form-group" ng-repeat="(key, value) in displayFields">
       <label class="text-capitalize">{{key}}</label>
       <input type="text" class="form-control" dynamic-model=value required>
     </div>

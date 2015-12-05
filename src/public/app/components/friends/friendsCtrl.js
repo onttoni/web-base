@@ -1,26 +1,24 @@
 var app = require('angular').module('app');
-var getFriendDoc = require('./friendsUtils').getFriendDoc;
-var extractDocData = require('./friendsUtils').extractDocData;
+var getPersonDoc = require('../../shared/utils/personUtils').getPersonDoc;
+var extractDocData = require('../../shared/utils/personUtils').extractDocData;
 
 app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Friend) {
 
   'use strict';
 
-  $scope.friends = {};
-
-  $scope.friends.getDetails = function() {
+  $scope.getDetails = function() {
     $log.debug('Getting details for friend with id=' + $stateParams.friendId);
     Friend.get({id: $stateParams.friendId, fields: '-__v'},
       function(friend) {
         $log.debug('Got details:', friend);
-        getFriendDoc($scope, friend);
+        getPersonDoc($scope, friend, 'friendSchema');
       }
     );
   };
 
-  $scope.friends.update = function() {
+  $scope.update = function() {
     $log.debug('Updating details for friend with id=' + $stateParams.friendId);
-    $scope.friends.friendDoc.validate(function(err) {
+    $scope.personDoc.validate(function(err) {
       if (err) {
         $log.debug('Validation error when updating friend', err.errors);
         return;
@@ -33,10 +31,10 @@ app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Frien
   };
 
   if ($stateParams.friendId) {
-    $scope.friends.getDetails();
+    $scope.getDetails();
   } else {
-    $scope.friends.list = Friend.query({fields: 'name address'});
-    $log.debug('Got list of friends:', $scope.friends.list);
+    $scope.friendsList = Friend.query({fields: 'name address'});
+    $log.debug('Got list of friends:', $scope.friendsList);
   }
 
 });
