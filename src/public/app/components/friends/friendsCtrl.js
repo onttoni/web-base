@@ -1,5 +1,6 @@
 var app = require('angular').module('app');
-var friendSchema = require('../../../../server/models/friendSchema');
+var getFriendDoc = require('./friendsUtils').getFriendDoc;
+var extractDocData = require('./friendsUtils').extractDocData;
 
 app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Friend) {
 
@@ -12,23 +13,19 @@ app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Frien
     Friend.get({id: $stateParams.friendId, fields: '-__v'},
       function(friend) {
         $log.debug('Got details:', friend);
-        $scope.friends.details = mongoose.Document(friend, friendSchema);
+        getFriendDoc($scope, friend);
       }
     );
   };
 
   $scope.friends.update = function() {
     $log.debug('Updating details for friend with id=' + $stateParams.friendId);
-    $scope.friends.details.validate(function(err) {
+    $scope.friends.friendDoc.validate(function(err) {
       if (err) {
         $log.debug('Validation error when updating friend', err.errors);
         return;
       }
-      var data = {};
-      $scope.friends.details.displayFields().forEach(function(key) {
-        data[key] = $scope.friends.details[key];
-      });
-      Friend.update({id: $stateParams.friendId, update: data}, function(friend) {
+      Friend.update({id: $stateParams.friendId, update: extractDocData($scope)}, function(friend) {
         $log.debug('Friend updated', friend);
       });
       $state.go('app.friends.list');
@@ -38,7 +35,7 @@ app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Frien
   if ($stateParams.friendId) {
     $scope.friends.getDetails();
   } else {
-    $scope.friends.list = Friend.query({fields: 'firstName lastName address'});
+    $scope.friends.list = Friend.query({fields: 'name address'});
     $log.debug('Got list of friends:', $scope.friends.list);
   }
 
