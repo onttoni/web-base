@@ -35,7 +35,7 @@ try {
   log.warn('Server disabled SSL', err);
 }
 
-var io = require('./socket')(server, session);
+require('./socket')(server);
 require('./passport')(passport);
 
 // All middleware should be placed before routes.

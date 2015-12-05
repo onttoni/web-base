@@ -4,7 +4,7 @@ var log = require('./logger');
 var socketioJwt = require('socketio-jwt');
 var jwtPublic = require('./token').getPublicKey();
 
-module.exports = function(server, session) {
+module.exports = function(server) {
 
   var socketIo = require('socket.io');
   var io = socketIo.listen(server);
