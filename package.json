@@ -44,10 +44,7 @@
     "ui-router-extras": "latest"
   },
   "devDependencies": {
-    "browserify": "latest",
-    "browserify-shim": "latest",
     "grunt": "latest",
-    "grunt-browserify": "latest",
     "grunt-cli": "latest",
     "grunt-contrib-clean": "latest",
     "grunt-contrib-copy": "latest",
@@ -59,8 +56,11 @@
     "grunt-html-angular-validate": "latest",
     "grunt-mkdir": "latest",
     "grunt-ng-annotate": "latest",
+    "grunt-webpack": "latest",
     "load-grunt-config": "latest",
-    "nodemon": "latest"
+    "node-loader": "latest",
+    "nodemon": "latest",
+    "webpack": "latest"
   },
   "scripts": {
     "start": "./nodemon -w src/server/ src/server/server.js |./bunyan -o short -L"
