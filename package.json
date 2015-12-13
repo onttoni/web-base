@@ -1,22 +1,9 @@
 { "name": "web-base",
   "version": "0.0.0",
   "description": "Common Node.js modules for web-base.",
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browserify-shim": {
-    "bootstrap": {
-      "depends": [
-        "jquery: jQuery"
-      ]
-    }
-  },
   "dependencies": {
     "angular": "latest",
     "angular-resource": "latest",
-    "angular-sanitize": "latest",
     "angular-ui-bootstrap": "latest",
     "angular-ui-router": "latest",
     "bcrypt-nodejs": "latest",
@@ -36,6 +23,7 @@
     "method-override": "latest",
     "moment": "latest",
     "mongoose": "latest",
+    "oclazyload": "latest",
     "passport": "latest",
     "passport-local": "latest",
     "socket.io": "latest",
@@ -60,7 +48,8 @@
     "load-grunt-config": "latest",
     "node-loader": "latest",
     "nodemon": "latest",
-    "webpack": "latest"
+    "webpack": "latest",
+    "webpack-dev-server": "latest"
   },
   "scripts": {
     "start": "./nodemon -w src/server/ src/server/server.js |./bunyan -o short -L"
