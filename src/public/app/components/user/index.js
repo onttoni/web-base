@@ -1,4 +1,4 @@
-define(['angular'], function(angular) {
+define(['angular', 'angular-ui-bootstrap'], function(angular) {
 
   var user = angular.module('user', []);
 
