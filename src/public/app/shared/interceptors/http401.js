@@ -1,22 +1,26 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.factory('http401Interceptor', function($q, $injector) {
+  var interceptors = angular.module('interceptors');
 
-  'use strict';
+  interceptors.factory('http401Interceptor', function($q, $injector) {
 
-  return {
-    response: function(response) {
-      return response || $q.when(response);
-    },
-    responseError: function(response) {
-      if (response.status === 401) {
-        $injector.get('$state').go('app.user.login');
+    'use strict';
+
+    return {
+      response: function(response) {
+        return response || $q.when(response);
+      },
+      responseError: function(response) {
+        if (response.status === 401) {
+          $injector.get('$state').go('app.user.login');
+        }
+        return $q.reject(response);
       }
-      return $q.reject(response);
-    }
-  };
-});
+    };
+  });
 
-app.config(function($httpProvider) {
-  $httpProvider.interceptors.push('http401Interceptor');
+  interceptors.config(function($httpProvider) {
+    $httpProvider.interceptors.push('http401Interceptor');
+  });
+
 });

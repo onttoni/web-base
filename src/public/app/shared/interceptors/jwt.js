@@ -1,21 +1,25 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.factory('jwtInterceptor', function($q, $window) {
+  var interceptors = angular.module('interceptors');
 
-  'use strict';
+  interceptors.factory('jwtInterceptor', function($q, $window) {
 
-  return {
-    request: function(request) {
-      request.headers = request.headers || {};
-      if ($window.localStorage.token) {
-        // RFC 6750 p. 5
-        request.headers.Authorization = 'Bearer ' + $window.localStorage.token;
+    'use strict';
+
+    return {
+      request: function(request) {
+        request.headers = request.headers || {};
+        if ($window.localStorage.token) {
+          // RFC 6750 p. 5
+          request.headers.Authorization = 'Bearer ' + $window.localStorage.token;
+        }
+        return request;
       }
-      return request;
-    }
-  };
-});
+    };
+  });
 
-app.config(function($httpProvider) {
-  $httpProvider.interceptors.push('jwtInterceptor');
+  interceptors.config(function($httpProvider) {
+    $httpProvider.interceptors.push('jwtInterceptor');
+  });
+
 });
