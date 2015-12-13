@@ -1,14 +1,18 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.config(function($stateProvider) {
+  var app = angular.module('app');
 
-  'use strict';
+  app.config(function($stateProvider) {
 
-  $stateProvider.
-  state('app.chat', {
-    url: '/chat',
-    templateUrl: 'app/components/chat/chatView.html.tmpl',
-    controller: 'chatCtrl'
+    'use strict';
+
+    $stateProvider.
+    state('app.chat', {
+      url: '/chat',
+      templateUrl: 'app/components/chat/chatView.html.tmpl',
+      controller: 'chatCtrl'
+    });
+
   });
 
 });

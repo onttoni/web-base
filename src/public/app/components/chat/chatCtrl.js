@@ -1,47 +1,50 @@
-var app = require('angular').module('app');
-var CBuffer = require('CBuffer');
+define(['angular', 'CBuffer', 'shared/services'], function(angular, CBuffer) {
 
-app.controller('chatCtrl', function($log, $scope, $state, SocketService) {
+  var chat = angular.module('chat');
 
-  'use strict';
+  chat.controller('chatCtrl', function($log, $scope, $state, SocketService) {
 
-  var outputBufferLen = 50;
-  var outputBuffer = null;
+    'use strict';
 
-  $scope.chat = {};
+    var outputBufferLen = 50;
+    var outputBuffer = null;
 
-  SocketService.emit('chat:join');
+    $scope.chat = {};
 
-  $scope.chat.getMessages = function() {
-    if (outputBuffer) {
-      return outputBuffer.toArray();
-    }
-  };
+    SocketService.emit('chat:join');
 
-  SocketService.on('chat:hello', function(data) {
-    outputBuffer = new CBuffer(outputBufferLen);
-    $scope.$apply(function() {
-      outputBuffer.push(data);
+    $scope.chat.getMessages = function() {
+      if (outputBuffer) {
+        return outputBuffer.toArray();
+      }
+    };
+
+    SocketService.on('chat:hello', function(data) {
+      outputBuffer = new CBuffer(outputBufferLen);
+      $scope.$apply(function() {
+        outputBuffer.push(data);
+      });
     });
-  });
 
-  SocketService.on('chat:bye', function() {
-    outputBuffer = null;
-  });
-
-  SocketService.on('chat:say', function(data) {
-    $scope.$apply(function() {
-      outputBuffer.push(data);
+    SocketService.on('chat:bye', function() {
+      outputBuffer = null;
     });
-  });
 
-  $scope.chat.send = function() {
-    SocketService.emit('chat:msg', $scope.chat.input);
-    $scope.chat.input = '';
-  };
+    SocketService.on('chat:say', function(data) {
+      $scope.$apply(function() {
+        outputBuffer.push(data);
+      });
+    });
 
-  $scope.$on('$destroy', function() {
-    SocketService.emit('chat:leave');
+    $scope.chat.send = function() {
+      SocketService.emit('chat:msg', $scope.chat.input);
+      $scope.chat.input = '';
+    };
+
+    $scope.$on('$destroy', function() {
+      SocketService.emit('chat:leave');
+    });
+
   });
 
 });
