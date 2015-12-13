@@ -1,22 +1,26 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.config(function($stateProvider) {
+  var about = angular.module('about');
 
-  'use strict';
+  about.config(function($stateProvider) {
 
-  var previousState;
+    'use strict';
 
-  $stateProvider.state('about', {
-    url: '/about',
-    onEnter: function($previousState, $uibModal) {
-      previousState = $previousState.memo('previousState');
-      $uibModal.open({
-        templateUrl: 'app/components/about/about.html.tmpl',
-        controller: 'aboutCtrl'
-      }).result.finally(function() {
-        $previousState.go('previousState');
-      });
-    }
+    var previousState;
+
+    $stateProvider.state('about', {
+      url: '/about',
+      onEnter: function($previousState, $uibModal) {
+        previousState = $previousState.memo('previousState');
+        $uibModal.open({
+          templateUrl: 'app/components/about/about.html.tmpl',
+          controller: 'aboutCtrl'
+        }).result.finally(function() {
+          $previousState.go('previousState');
+        });
+      }
+    });
+
   });
 
 });

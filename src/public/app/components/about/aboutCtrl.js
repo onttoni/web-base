@@ -1,16 +1,21 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.controller('aboutCtrl', function($scope, $uibModalInstance) {
+  var about = angular.module('about');
 
-  'use strict';
+  about.controller('aboutCtrl', function($scope, $uibModalInstance) {
 
-  $scope.about = {};
+    'use strict';
 
-  $scope.about.ok = function() {
-    $uibModalInstance.close();
-  };
+    $scope.about = {};
 
-  $scope.about.getUa = function() {
-    return navigator.userAgent;
-  };
+    $scope.about.ok = function() {
+      $uibModalInstance.close();
+    };
+
+    $scope.about.getUa = function() {
+      return navigator.userAgent;
+    };
+
+  });
+
 });
