@@ -1,21 +1,25 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.factory('comp1Factory', function() {
+  var home = angular.module('home');
 
-  'use strict';
+  home.factory('comp1Factory', function() {
 
-  var myFactory = {};
+    'use strict';
 
-  myFactory.data = [];
+    var myFactory = {};
 
-  myFactory.addData = function(person) {
-    myFactory.data.push(person);
-  };
+    myFactory.data = [];
 
-  myFactory.getData = function() {
-    return myFactory.data;
-  };
+    myFactory.addData = function(person) {
+      myFactory.data.push(person);
+    };
 
-  return myFactory;
+    myFactory.getData = function() {
+      return myFactory.data;
+    };
+
+    return myFactory;
+
+  });
 
 });

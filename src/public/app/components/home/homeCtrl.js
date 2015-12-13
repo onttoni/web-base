@@ -1,13 +1,17 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.controller('homeCtrl', function($scope) {
+  var home = angular.module('home');
 
-  'use strict';
+  home.controller('homeCtrl', function($scope) {
 
-  $scope.home = {};
+    'use strict';
 
-  $scope.home.reload = function() {
-    location.reload();
-  };
+    $scope.home = {};
+
+    $scope.home.reload = function() {
+      location.reload();
+    };
+
+  });
 
 });
