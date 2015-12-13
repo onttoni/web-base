@@ -1,32 +1,53 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.config(function($stateProvider, $urlRouterProvider) {
+  var app = angular.module('app');
 
-  'use strict';
+  app.config(function($futureStateProvider, $stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise('/');
+    'use strict';
 
-  $stateProvider.
-    state('app', {
-      url: '',
-      abstract: true,
-      sticky: true,
-      template: '<ui-view></ui-view>',
-      views: {
-        'app': {
-          templateUrl: 'app/shared/views/body.html.tmpl'
-        },
-        'header@app': {
-          templateUrl: 'app/shared/views/header.html.tmpl'
-        },
-        'footer@app': {
-          templateUrl: 'app/shared/views/footer.html.tmpl'
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider.
+      state('app', {
+        url: '',
+        abstract: true,
+        sticky: true,
+        template: '<ui-view></ui-view>',
+        views: {
+          'app': {
+            templateUrl: 'app/shared/views/body.html.tmpl'
+          },
+          'header@app': {
+            templateUrl: 'app/shared/views/header.html.tmpl'
+          },
+          'footer@app': {
+            templateUrl: 'app/shared/views/footer.html.tmpl'
+          }
         }
-      }
-    }).
-    state('app.home', {
-      url: '/',
-      templateUrl: 'app/components/home/homeView.html.tmpl',
-      controller: 'homeCtrl'
-    });
+      });
+
+    var ocLazyLoadStateFactory = function($q, $ocLazyLoad, futureState) {
+      var deferred = $q.defer();
+      $ocLazyLoad.load(futureState.src).then(function() {
+        deferred.resolve();
+      }, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+
+    function loadAndRegisterFutureStates($http) {
+      return $http.get('app/futureStates.json').then(function(resp) {
+        angular.forEach(resp.data, function(fstate) {
+          $futureStateProvider.futureState(fstate);
+        });
+      });
+    }
+
+    $futureStateProvider.stateFactory('ocLazyLoad', /*@ngInject*/ ocLazyLoadStateFactory);
+    $futureStateProvider.addResolve(/*@ngInject*/ loadAndRegisterFutureStates);
+
+  });
+
 });
