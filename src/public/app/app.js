@@ -1,21 +1,28 @@
-$ = jQuery = require('jquery');
-require('bootstrap');
-require('angular');
-require('angular-resource');
-require('angular-ui-bootstrap');
-require('angular-ui-router');
-require('angular-sanitize');
-require('ui-router-extras');
+define(['angular'],
+  function(angular) {
 
-var appDeps = ['ct.ui.router.extras', 'ngResource', 'ngSanitize', 'ui.bootstrap', 'ui.router'];
-var app = angular.module('app', appDeps);
+    'use strict';
 
-require('./config');
-require('../js/jquery_parts');
-require('./shared');
-require('./components/about');
-require('./components/chat');
-require('./components/home');
-require('./components/friends');
-require('./components/user');
-require('./states');
+    require('shared/directives');
+    require('shared/filters');
+    require('shared/interceptors');
+    require('shared/services');
+
+    var appDeps = [
+      'ct.ui.router.extras',
+      'oc.lazyLoad',
+      'ui.router',
+      'directives',
+      'filters',
+      'interceptors',
+      'services'
+    ];
+    var app = angular.module('app', appDeps);
+
+    require('config');
+    require('../js/jquery_parts');
+    require('states');
+
+    return app;
+  }
+);
