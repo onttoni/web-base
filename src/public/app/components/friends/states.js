@@ -1,43 +1,47 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.config(function($stateProvider) {
+  var app = angular.module('app');
 
-  'use strict';
+  app.config(function($stateProvider) {
 
-  var previousState;
+    'use strict';
 
-  $stateProvider.
-    state('app.friends', {
-      abstract: true,
-      url: '/friends',
-      template: '<ui-view></ui-view>'
-    }).
-    state('app.friends.list', {
-      url: '/list',
-      templateUrl: 'app/components/friends/list.html.tmpl',
-      controller: 'friendsCtrl'
-    }).
-    state('app.friends.details', {
-      url: '/details/:friendId',
-      templateUrl: 'app/components/friends/details.html.tmpl',
-      controller: 'friendsCtrl'
-    }).
-    state('app.friends.add', {
-      url: '/add',
-      templateUrl: 'app/components/friends/add.html.tmpl',
-      controller: 'friendsAddCtrl'
-    }).
-    state('app.friends.delete', {
-      url: '/delete/:friendId',
-      onEnter: function($previousState, $uibModal) {
-        previousState = $previousState.memo('previousState');
-        $uibModal.open({
-          templateUrl: 'app/components/friends/delete.html.tmpl',
-          controller: 'friendsDeleteCtrl'
-        }).result.finally(function() {
-          $previousState.go('previousState');
-        });
-      }
-    });
+    var previousState;
+
+    $stateProvider.
+      state('app.friends', {
+        abstract: true,
+        url: '/friends',
+        template: '<ui-view></ui-view>'
+      }).
+      state('app.friends.list', {
+        url: '/list',
+        templateUrl: 'app/components/friends/list.html.tmpl',
+        controller: 'friendsCtrl'
+      }).
+      state('app.friends.details', {
+        url: '/details/:friendId',
+        templateUrl: 'app/components/friends/details.html.tmpl',
+        controller: 'friendsCtrl'
+      }).
+      state('app.friends.add', {
+        url: '/add',
+        templateUrl: 'app/components/friends/add.html.tmpl',
+        controller: 'friendsAddCtrl'
+      }).
+      state('app.friends.delete', {
+        url: '/delete/:friendId',
+        onEnter: function($previousState, $uibModal) {
+          previousState = $previousState.memo('previousState');
+          $uibModal.open({
+            templateUrl: 'app/components/friends/delete.html.tmpl',
+            controller: 'friendsDeleteCtrl'
+          }).result.finally(function() {
+            $previousState.go('previousState');
+          });
+        }
+      });
+
+  });
 
 });

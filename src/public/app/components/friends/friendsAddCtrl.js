@@ -1,25 +1,29 @@
-var app = require('angular').module('app');
-var getPersonDoc = require('../../shared/utils/personUtils').getPersonDoc;
-var extractDocData = require('../../shared/utils/personUtils').extractDocData;
+define(['angular'], function(angular) {
 
-app.controller('friendsAddCtrl', function($log, $scope, $state, Friend) {
+  var friends = angular.module('friends');
+  var getPersonDoc = require('shared/utils/personUtils').getPersonDoc;
+  var extractDocData = require('shared/utils/personUtils').extractDocData;
 
-  'use strict';
+  friends.controller('friendsAddCtrl', function($log, $scope, $state, Friend) {
 
-  getPersonDoc($scope, {}, 'friendSchema');
+    'use strict';
 
-  $scope.save = function() {
-    $log.debug('Adding friend', $scope.friendDoc);
-    $scope.personDoc.validate(function(err) {
-      if (err) {
-        $log.debug('Validation error when adding friend', err.errors);
-        return;
-      }
-      new Friend({add: extractDocData($scope)}).$save(function(newFriend) {
-        $log.debug('New friend is', newFriend);
+    getPersonDoc($scope, {}, 'friendSchema');
+
+    $scope.save = function() {
+      $log.debug('Adding friend', $scope.friendDoc);
+      $scope.personDoc.validate(function(err) {
+        if (err) {
+          $log.debug('Validation error when adding friend', err.errors);
+          return;
+        }
+        new Friend({add: extractDocData($scope)}).$save(function(newFriend) {
+          $log.debug('New friend is', newFriend);
+        });
+        $state.go('app.friends.list');
       });
-      $state.go('app.friends.list');
-    });
-  };
+    };
+
+  });
 
 });

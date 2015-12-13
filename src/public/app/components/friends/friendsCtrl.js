@@ -1,40 +1,44 @@
-var app = require('angular').module('app');
-var getPersonDoc = require('../../shared/utils/personUtils').getPersonDoc;
-var extractDocData = require('../../shared/utils/personUtils').extractDocData;
+define(['angular'], function(angular) {
 
-app.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Friend) {
+  var friends = angular.module('friends');
+  var getPersonDoc = require('../../shared/utils/personUtils').getPersonDoc;
+  var extractDocData = require('../../shared/utils/personUtils').extractDocData;
 
-  'use strict';
+  friends.controller('friendsCtrl', function($log, $scope, $state, $stateParams, Friend) {
 
-  $scope.getDetails = function() {
-    $log.debug('Getting details for friend with id=' + $stateParams.friendId);
-    Friend.get({id: $stateParams.friendId, fields: '-__v'},
-      function(friend) {
-        $log.debug('Got details:', friend);
-        getPersonDoc($scope, friend, 'friendSchema');
-      }
-    );
-  };
+    'use strict';
 
-  $scope.update = function() {
-    $log.debug('Updating details for friend with id=' + $stateParams.friendId);
-    $scope.personDoc.validate(function(err) {
-      if (err) {
-        $log.debug('Validation error when updating friend', err.errors);
-        return;
-      }
-      Friend.update({id: $stateParams.friendId, update: extractDocData($scope)}, function(friend) {
-        $log.debug('Friend updated', friend);
+    $scope.getDetails = function() {
+      $log.debug('Getting details for friend with id=' + $stateParams.friendId);
+      Friend.get({id: $stateParams.friendId, fields: '-__v'},
+        function(friend) {
+          $log.debug('Got details:', friend);
+          getPersonDoc($scope, friend, 'friendSchema');
+        }
+      );
+    };
+
+    $scope.update = function() {
+      $log.debug('Updating details for friend with id=' + $stateParams.friendId);
+      $scope.personDoc.validate(function(err) {
+        if (err) {
+          $log.debug('Validation error when updating friend', err.errors);
+          return;
+        }
+        Friend.update({id: $stateParams.friendId, update: extractDocData($scope)}, function(friend) {
+          $log.debug('Friend updated', friend);
+        });
+        $state.go('app.friends.list');
       });
-      $state.go('app.friends.list');
-    });
-  };
+    };
 
-  if ($stateParams.friendId) {
-    $scope.getDetails();
-  } else {
-    $scope.friendsList = Friend.query({fields: 'name address'});
-    $log.debug('Got list of friends:', $scope.friendsList);
-  }
+    if ($stateParams.friendId) {
+      $scope.getDetails();
+    } else {
+      $scope.friendsList = Friend.query({fields: 'name address'});
+      $log.debug('Got list of friends:', $scope.friendsList);
+    }
+
+  });
 
 });

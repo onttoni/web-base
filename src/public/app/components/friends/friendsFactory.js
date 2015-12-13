@@ -1,12 +1,16 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.factory('Friend', function($resource) {
+  var friends = angular.module('friends');
 
-  return $resource('/api/friends/:id', {id: '@_id'},
-    {
-      add: {method: 'POST'},
-      update: {method: 'PUT'},
-    }
-  );
+  friends.factory('Friend', function($resource) {
+
+    return $resource('/api/friends/:id', {id: '@_id'},
+      {
+        add: {method: 'POST'},
+        update: {method: 'PUT'},
+      }
+    );
+
+  });
 
 });
