@@ -1,11 +1,15 @@
-var app = require('angular').module('app');
+define(['angular'], function(angular) {
 
-app.filter('sanitize', function($sce) {
+  var filters = angular.module('filters');
 
-  'use strict';
+  filters.filter('sanitize', function($sce) {
 
-  return function(snippet) {
-    return $sce.trustAsHtml(snippet);
-  };
+    'use strict';
+
+    return function(snippet) {
+      return $sce.trustAsHtml(snippet);
+    };
+
+  });
 
 });
