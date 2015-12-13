@@ -1,42 +1,46 @@
-var app = require('angular').module('app');
+define(['angular', 'bootstrap'], function(angular) {
 
-app.directive('navbar', function() {
-  var directive = {};
-  directive.restrict = 'E';
-  directive.templateUrl = 'app/shared/directives/navbar.html.tmpl';
+  var directives = angular.module('directives');
 
-  directive.scope = {};
-  directive.controller =
-    /*@ngInject*/
-    function($log, $rootScope, $scope, UserService) {
+  directives.directive('navbar', function() {
+    var directive = {};
+    directive.restrict = 'E';
+    directive.templateUrl = 'app/shared/directives/navbar.html.tmpl';
 
-      whoAmI();
+    directive.scope = {};
+    directive.controller =
+      /*@ngInject*/
+      function($log, $rootScope, $scope, UserService) {
 
-      function whoAmI() {
-        UserService.whoAmI(
-          function(userObj) {
-            $scope.userName = userObj.name.formatted;
-            $scope.isSignedIn = true;
-          },
-          iAmNobody
-        );
-      }
-
-      function iAmNobody() {
-        $scope.firstName = null;
-        $scope.isSignedIn = false;
-      }
-
-      $rootScope.$on('user:signIn', function() {
-        $log.debug('navbar <- user:signIn');
         whoAmI();
-      });
 
-      $rootScope.$on('user:signOut', function() {
-        $log.debug('navbar <- user:signOut');
-        iAmNobody();
-      });
-    };
+        function whoAmI() {
+          UserService.whoAmI(
+            function(userObj) {
+              $scope.userName = userObj.name.formatted;
+              $scope.isSignedIn = true;
+            },
+            iAmNobody
+          );
+        }
 
-  return directive;
+        function iAmNobody() {
+          $scope.firstName = null;
+          $scope.isSignedIn = false;
+        }
+
+        $rootScope.$on('user:signIn', function() {
+          $log.debug('navbar <- user:signIn');
+          whoAmI();
+        });
+
+        $rootScope.$on('user:signOut', function() {
+          $log.debug('navbar <- user:signOut');
+          iAmNobody();
+        });
+      };
+
+    return directive;
+  });
+
 });
