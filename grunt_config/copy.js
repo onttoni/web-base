@@ -14,5 +14,13 @@ module.exports = {
       dest: 'build/public/assets/images',
       flatten: true
     }]
+  },
+  states: {
+    files: [{
+      expand: true,
+      src: ['src/public/app/futureStates.json'],
+      dest: 'build/public/app/',
+      flatten: true
+    }]
   }
 };
