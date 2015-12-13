@@ -15,6 +15,6 @@ module.exports = function(grunt) {
   grunt.registerTask('libs', ['clean', 'mkdir', 'browserify:vendor', 'uglify:vendor']);
   grunt.registerTask('common', ['htmlangular', 'jshint', 'copy', 'cssmin']);
   grunt.registerTask('debug', ['common', 'webpack:debug', 'htmlmin:debug']);
-  grunt.registerTask('dist', ['common', 'webpack', 'ngAnnotate', 'uglify:dist', 'htmlmin:dist']);
+  grunt.registerTask('dist', ['common', 'webpack:debug', 'ngAnnotate', 'uglify:dist', 'htmlmin:dist']);
 
 };

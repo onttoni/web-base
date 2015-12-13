@@ -1,27 +1,41 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   debug: {
-    // webpack options
-    entry: './src/public/app/app.js',
+    entry: {
+      app: './src/public/app/app.js',
+      about: './src/public/app/components/about/index.js',
+      chat: './src/public/app/components/chat/index.js',
+      home: './src/public/app/components/home/index.js',
+      friends: './src/public/app/components/friends/index.js',
+      user: './src/public/app/components/user/index.js',
+      vendor: [
+        'angular',
+        'angular-ui-router',
+        'bootstrap',
+        'oclazyload',
+        'ui-router-extras'
+      ],
+    },
+
     output: {
       path: './build/public/app/',
-      filename: 'app.js',
+      filename: '[name].js',
+      publicPath: '/app/'
     },
 
-    stats: {
-      // Configure the console output
-      colors: true,
-      modules: true,
-      reasons: true
-    },
-    // stats: false disables the stats output
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery'
+      }),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.CommonsChunkPlugin({name: 'vendor', minChunks: Infinity})
+    ],
 
-    storeStatsTo: 'xyz', // writes the status to a variable named xyz
-    // you may use it later in grunt i.e. <%= xyz.hash %>
+    stats: false,
 
-    progress: false, // Don't show progress
-    // Defaults to true
+    progress: true,
 
     failOnError: false,
 
@@ -29,11 +43,9 @@ module.exports = {
 
     keepalive: false,
 
-    inline: false,  // embed the webpack-dev-server runtime into the bundle
-    // Defaults to false
+    inline: false,
 
-    hot: true, // adds the HotModuleReplacementPlugin and switch the server to hot mode
-    // Use this in combination with the inline option
+    hot: false,
 
     module: {
       loaders: [
@@ -84,60 +96,3 @@ module.exports = {
     },
   },
 };
-
-// module.exports = {
-//   options: {
-//     browserifyOptions: {
-//       paths: ['./src/server']
-//     },
-//     debug: false,
-//     external: [
-//       'angular',
-//       'angular-resource',
-//       'angular-sanitize',
-//       'angular-ui-bootstrap',
-//       'angular-ui-router',
-//       'bootstrap',
-//       'CBuffer',
-//       'jquery',
-//       'lodash',
-//       'mongoose',
-//       'socket.io-client',
-//       'ui-router-extras'
-//     ]
-//   },
-//   debug: {
-//     options: {
-//       debug: true,
-//     },
-//     files: {
-//       'build/public/app/app.js': ['src/public/app/app.js'],
-//     }
-//   },
-//   dist: {
-//     files: {
-//       'build/public/app/app.js': ['src/public/app/app.js'],
-//     }
-//   },
-//   vendor: {
-//     options: {
-//       alias: [
-//         'angular:',
-//         'angular-resource:',
-//         'angular-sanitize:',
-//         'angular-ui-bootstrap:',
-//         'angular-ui-router:',
-//         'bootstrap:',
-//         'CBuffer:',
-//         'jquery:',
-//         'lodash:',
-//         'mongoose:',
-//         'socket.io-client:',
-//         'ui-router-extras:'
-//       ],
-//       external: null
-//     },
-//     src: ['.'],
-//     dest: 'build/public/app/vendor.js',
-//   }
-// };
