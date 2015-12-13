@@ -1,4 +1,4 @@
-define(['angular','angular-resource'], function(angular) {
+define(['angular','angular-resource', 'angular-ui-bootstrap'], function(angular) {
 
   var friends = angular.module('friends', ['ngResource']);
 
