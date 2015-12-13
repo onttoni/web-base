@@ -1,0 +1,62 @@
+[
+  {
+    "stateName": "app.home",
+    "urlPrefix": "/",
+    "type": "ocLazyLoad",
+    "src": "app/home.js"
+  },
+  {
+    "stateName": "app.chat",
+    "urlPrefix": "/chat",
+    "type": "ocLazyLoad",
+    "src": "app/chat.js"
+  },
+  {
+    "stateName": "app.friends",
+    "type": "ocLazyLoad",
+    "urlPrefix": "/friends",
+    "src": "app/friends.js"
+  },
+  {
+    "stateName": "app.friends.details",
+    "type": "ocLazyLoad",
+    "urlPrefix": "/details/:friendId",
+    "src": "app/friends.js"
+  },
+  {
+    "stateName": "app.user",
+    "type": "ocLazyLoad",
+    "urlPrefix": "/user",
+    "src": "app/user.js"
+  },
+  {
+    "stateName": "app.user.login",
+    "urlPrefix": "/login",
+    "type": "ocLazyLoad",
+    "src": "app/user.js"
+  },
+  {
+    "stateName": "app.user.logout",
+    "urlPrefix": "/logout",
+    "type": "ocLazyLoad",
+    "src": "app/user.js"
+  },
+  {
+    "stateName": "app.user.signup",
+    "urlPrefix": "/signup",
+    "type": "ocLazyLoad",
+    "src": "app/user.js"
+  },
+  {
+    "stateName": "app.user.profile",
+    "urlPrefix": "/profile",
+    "type": "ocLazyLoad",
+    "src": "app/user.js"
+  },
+  {
+    "stateName": "about",
+    "urlPrefix": "/about",
+    "type": "ocLazyLoad",
+    "src": "app/about.js"
+  }
+]
