@@ -1,25 +1,29 @@
-var app = require('angular').module('app');
+define(['angular', 'shared/services'], function(angular) {
 
-app.controller('userLoginCtrl', function($log, $scope, $uibModalInstance, UserService) {
+  var user = angular.module('user');
 
-  'use strict';
+  user.controller('userLoginCtrl', function($log, $scope, $uibModalInstance, UserService) {
 
-  $scope.user = {};
-  $scope.user.loggedIn = {};
+    'use strict';
 
-  $scope.user.login = function() {
-    UserService.login($scope.user.loggedIn,
-      function() {
-        $uibModalInstance.close('loginSuccess');
-      });
-  };
+    $scope.user = {};
+    $scope.user.loggedIn = {};
 
-  $scope.user.cancel = function() {
-    $uibModalInstance.close('loginCancelled');
-  };
+    $scope.user.login = function() {
+      UserService.login($scope.user.loggedIn,
+        function() {
+          $uibModalInstance.close('loginSuccess');
+        });
+    };
 
-  $scope.user.signUp = function() {
-    $uibModalInstance.close('signUp');
-  };
+    $scope.user.cancel = function() {
+      $uibModalInstance.close('loginCancelled');
+    };
+
+    $scope.user.signUp = function() {
+      $uibModalInstance.close('signUp');
+    };
+
+  });
 
 });

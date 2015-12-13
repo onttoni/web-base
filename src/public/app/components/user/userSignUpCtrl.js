@@ -1,31 +1,35 @@
-var app = require('angular').module('app');
-var userSchema = require('models/userSchema');
+define(['angular', 'shared/services'], function(angular) {
 
-app.controller('userSignUpCtrl', function($log, $scope, $state, UserService) {
+  var user = angular.module('user');
+  var userSchema = require('models/userSchema');
 
-  'use strict';
+  user.controller('userSignUpCtrl', function($log, $scope, $state, UserService) {
 
-  $scope.user = {};
-  $scope.user.added = mongoose.Document({}, userSchema);
+    'use strict';
 
-  $scope.user.signUp = function() {
-    $log.debug('New user is signing up', $scope.user.added);
-    $scope.user.added.validate(function(err) {
-      if (err) {
-        $log.debug('Validation error when adding user', err.errors);
-        return;
-      }
-      if ($scope.user.added.password != $scope.passwordVerify) {
-        $log.debug('Passwords did not match');
-        return;
-      }
-      var data = {};
-      $scope.user.added.displayFields().forEach(function(key) {
-        data[key] = $scope.user.added[key];
+    $scope.user = {};
+    $scope.user.added = mongoose.Document({}, userSchema);
+
+    $scope.user.signUp = function() {
+      $log.debug('New user is signing up', $scope.user.added);
+      $scope.user.added.validate(function(err) {
+        if (err) {
+          $log.debug('Validation error when adding user', err.errors);
+          return;
+        }
+        if ($scope.user.added.password != $scope.passwordVerify) {
+          $log.debug('Passwords did not match');
+          return;
+        }
+        var data = {};
+        $scope.user.added.displayFields().forEach(function(key) {
+          data[key] = $scope.user.added[key];
+        });
+        UserService.signUp(data, function() {
+          $state.go('app.home');
+        });
       });
-      UserService.signUp(data, function() {
-        $state.go('app.home');
-      });
-    });
-  };
+    };
+  });
+
 });

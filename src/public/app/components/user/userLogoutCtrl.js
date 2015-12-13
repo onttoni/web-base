@@ -1,10 +1,14 @@
-var app = require('angular').module('app');
+define(['angular', 'shared/services'], function(angular) {
 
-app.controller('userLogoutCtrl', function($log, UserService) {
+  var user = angular.module('user');
 
-  'use strict';
+  user.controller('userLogoutCtrl', function($log, UserService) {
 
-  $log.debug('User is logging out');
-  UserService.logout();
+    'use strict';
+
+    $log.debug('User is logging out');
+    UserService.logout();
+
+  });
 
 });
