@@ -1,14 +1,12 @@
-define(['angular'], function(angular) {
+define(['angular', 'shared/utils/personUtils'], function(angular, personUtils) {
 
   var friends = angular.module('friends');
-  var getPersonDoc = require('shared/utils/personUtils').getPersonDoc;
-  var extractDocData = require('shared/utils/personUtils').extractDocData;
 
   friends.controller('friendsAddCtrl', function($log, $scope, $state, Friend) {
 
     'use strict';
 
-    getPersonDoc($scope, {}, 'friendSchema');
+    personUtils.getPersonDoc($scope, {}, 'friendSchema');
 
     $scope.save = function() {
       $log.debug('Adding friend', $scope.friendDoc);
@@ -17,7 +15,7 @@ define(['angular'], function(angular) {
           $log.debug('Validation error when adding friend', err.errors);
           return;
         }
-        new Friend({add: extractDocData($scope)}).$save(function(newFriend) {
+        new Friend({add: personUtils.extractDocData($scope)}).$save(function(newFriend) {
           $log.debug('New friend is', newFriend);
         });
         $state.go('app.friends.list');

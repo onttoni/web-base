@@ -1,7 +1,5 @@
-var friendSchema = require('models/friendSchema');
-var userSchema = require('models/userSchema');
-
-define(['mongoose', 'lodash'], function(mongoose, _) {
+define(['mongoose', 'lodash', 'models/friendSchema', 'models/userSchema'],
+function(mongoose, _, friendSchema, userSchema) {
 
   module.exports = {
     getPersonDoc: function(scope, data, schemaName) {
