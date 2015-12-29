@@ -1,31 +1,28 @@
 define(['angular', 'shared/services'], function(angular) {
 
   var user = angular.module('user');
-  var userSchema = require('models/userSchema');
+  var getPersonDoc = require('shared/utils/personUtils').getPersonDoc;
+  var extractDocData = require('shared/utils/personUtils').extractDocData;
 
   user.controller('userSignUpCtrl', function($log, $scope, $state, UserService) {
 
     'use strict';
 
-    $scope.user = {};
-    $scope.user.added = mongoose.Document({}, userSchema);
+    $scope.passwordVerify = null;
+    getPersonDoc($scope, user, 'userSchema');
 
-    $scope.user.signUp = function() {
-      $log.debug('New user is signing up', $scope.user.added);
-      $scope.user.added.validate(function(err) {
+    $scope.signUp = function() {
+      $log.debug('New user is signing up', $scope.personDoc);
+      $scope.personDoc.validate(function(err) {
         if (err) {
           $log.debug('Validation error when adding user', err.errors);
           return;
         }
-        if ($scope.user.added.password != $scope.passwordVerify) {
+        if ($scope.personDoc.password != $scope.passwordVerify) {
           $log.debug('Passwords did not match');
           return;
         }
-        var data = {};
-        $scope.user.added.displayFields().forEach(function(key) {
-          data[key] = $scope.user.added[key];
-        });
-        UserService.signUp(data, function() {
+        UserService.signUp(extractDocData($scope), function() {
           $state.go('app.home');
         });
       });
