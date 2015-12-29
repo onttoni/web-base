@@ -15,7 +15,7 @@ module.exports = {
   extractDocData: function(scope) {
     var data = {};
     _.keys(scope.displayFields).forEach(function(field) {
-      data[field] = _.get(scope, scope.displayFields[field]);
+      _.set(data, field, _.get(scope, scope.displayFields[field]));
     });
     return data;
   }
