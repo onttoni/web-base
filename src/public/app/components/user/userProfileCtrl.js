@@ -19,7 +19,7 @@ define(['angular', 'shared/services'], function(angular) {
           $log.debug('Validation error when updating user', err.errors);
           return;
         }
-        UserService.update({update: extractDocData($scope)});
+        UserService.update(extractDocData($scope));
         $state.go('app.home');
       });
     };
