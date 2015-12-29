@@ -1,4 +1,5 @@
 var log = require('./logger');
+var compression = require('compression');
 var express = require('express');
 var fs = require('fs');
 var app = express();
@@ -39,6 +40,7 @@ require('./socket')(server);
 require('./passport')(passport);
 
 // All middleware should be placed before routes.
+app.use(compression());
 log.info('Serving static files from:', publicDir);
 app.use(express.static(publicDir));
 app.use(require('express-bunyan-logger')({
