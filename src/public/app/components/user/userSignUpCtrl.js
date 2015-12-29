@@ -9,7 +9,7 @@ define(['angular', 'shared/services'], function(angular) {
     'use strict';
 
     $scope.passwordVerify = null;
-    getPersonDoc($scope, user, 'userSchema');
+    getPersonDoc($scope, {}, 'userSchema');
 
     $scope.signUp = function() {
       $log.debug('New user is signing up', $scope.personDoc);
