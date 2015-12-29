@@ -17,7 +17,7 @@ app.controller('userProfileCtrl', function($log, $scope, $state, UserService) {
         $log.debug('Validation error when updating user', err.errors);
         return;
       }
-      UserService.update({update: extractDocData($scope)});
+      UserService.update(extractDocData($scope));
       $state.go('app.home');
     });
   };
